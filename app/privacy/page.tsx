@@ -1,0 +1,3 @@
+import Section from '@/components/Section';import { getMetadata } from '@/lib/seo';
+export const metadata=getMetadata('Privacy Policy | Operation Clean Freedom','Simple privacy policy for quote requests and customer communication.', '/privacy');
+export default function Page(){return <main><Section><h1 className="text-4xl font-bold">Privacy Policy</h1><p className="mt-4">We collect contact details you submit through our quote form to respond to service requests and scheduling questions. We do not sell your personal information. We may retain submitted details for customer service, scheduling, and recordkeeping. If you have privacy questions, email info@operationcleanfreedom.com.</p></Section></main>}

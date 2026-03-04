@@ -1,0 +1,3 @@
+import Link from 'next/link';
+import { services } from '@/lib/services';
+export default function ServiceCards(){return <div className="grid gap-5 md:grid-cols-3">{services.map(s=><Link key={s.slug} href={`/services/${s.slug}`} className="rounded-xl border p-5 hover:shadow"><h3 className="font-semibold">{s.name}</h3><ul className="mt-3 text-sm text-slate-700 list-disc pl-5">{s.includes.slice(0,2).map(i=><li key={i}>{i}</li>)}</ul></Link>)}<Link href="/services#bundles" className="rounded-xl border p-5"><h3 className="font-semibold">Exterior Cleaning Bundles</h3><p className="mt-3 text-sm">Bundle services to save time and reduce repeat visits.</p></Link></div>}

@@ -1,0 +1,5 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'>
+  <rect width='1200' height='800' fill='#1e293b'/>
+  <text x='80' y='170' fill='white' font-family='Arial, sans-serif' font-size='56' font-weight='700'>Gallery Placeholder 1</text>
+  <text x='80' y='240' fill='#93c5fd' font-family='Arial, sans-serif' font-size='30'>Before / After Visual Slot</text>
+</svg>

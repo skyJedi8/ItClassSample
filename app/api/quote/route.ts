@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+const nodemailer = require('nodemailer');
 import { isValidQuote } from '@/lib/validators';
 
 type Entry = { count: number; ts: number };

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Operation Clean Freedom mark">
+  <defs>
+    <linearGradient id="mblue" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#67d5ff"/>
+      <stop offset="100%" stop-color="#23b9f1"/>
+    </linearGradient>
+  </defs>
+  <path d="M128 10 208 28v58h-16V40L128 25 64 40v46H48V28z" fill="url(#mblue)"/>
+  <path d="M42 89 128 30l86 59-16 10-27-20v6l13 10v24l-16 14v52l-23 15v-48h-34v48l-23-15v-52l-16-14V95l13-10v-6l-27 20z" fill="#f8fafc"/>
+  <path d="M128 46c24 0 44 20 44 44s-20 44-44 44-44-20-44-44 20-44 44-44zm0 16c-15 0-28 13-28 28s13 28 28 28 28-13 28-28-13-28-28-28z" fill="#f8fafc"/>
+  <path d="m128 67 8 16 18 3-13 12 3 18-16-9-16 9 3-18-13-12 18-3z" fill="url(#mblue)"/>
+  <path d="M53 157c13 22 34 38 59 44v-20c-16-6-29-16-38-29z" fill="#f8fafc"/>
+  <path d="M203 157c-13 22-34 38-59 44v-20c16-6 29-16 38-29z" fill="url(#mblue)"/>
+</svg>

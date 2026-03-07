@@ -6,7 +6,7 @@ export default function ProcessSteps() {
       <div className="grid gap-4 md:grid-cols-3">
         {steps.map((step, index) => (
           <div key={step} className="glass-card p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-cyan-200">Step {index + 1}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-brand-200">Step {index + 1}</p>
             <h3 className="mt-2 text-lg font-semibold text-white">{step}</h3>
           </div>
         ))}

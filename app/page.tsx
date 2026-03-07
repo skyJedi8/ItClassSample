@@ -57,7 +57,7 @@ export default function Home() {
         <div className="mt-6">
           <GalleryGrid />
         </div>
-        <Link href="/gallery" className="mt-5 inline-block font-semibold text-cyan-200">View Full Gallery →</Link>
+        <Link href="/gallery" className="mt-5 inline-block font-semibold text-brand-200">View Full Gallery →</Link>
       </Section>
 
       <Section>
@@ -67,7 +67,7 @@ export default function Home() {
           <div className="mt-6">
             <ReviewCarousel limit={6} />
           </div>
-          <Link href="/reviews" className="mt-5 inline-block font-semibold text-cyan-200">Read All Reviews →</Link>
+          <Link href="/reviews" className="mt-5 inline-block font-semibold text-brand-200">Read All Reviews →</Link>
         </div>
       </Section>
 
@@ -75,7 +75,7 @@ export default function Home() {
         <div className="glass-card p-6 sm:p-8">
           <h2 className="text-3xl font-semibold tracking-tight text-white">Commercial, HOA & Property Management</h2>
           <p className="mt-3 max-w-3xl text-slate-300">Reliable recurring exterior cleaning for portfolios that need predictable communication, scheduling, and standards.</p>
-          <Link href="/commercial-hoa" className="mt-5 inline-block rounded-md bg-cyan-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-cyan-400">
+          <Link href="/commercial-hoa" className="mt-5 inline-block rounded-md bg-brand-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-brand-200">
             Talk to Us About Recurring Service
           </Link>
         </div>

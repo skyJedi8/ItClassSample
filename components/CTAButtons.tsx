@@ -8,7 +8,7 @@ export function CallButton() {
     <Link
       href={siteConfig.phoneLink}
       onClick={() => trackEvent('click_call')}
-      className="rounded-md bg-cyan-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-cyan-400"
+      className="rounded-md bg-brand-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-brand-200"
     >
       Call Now
     </Link>
@@ -20,7 +20,7 @@ export function TextButton() {
     <Link
       href={siteConfig.textLink}
       onClick={() => trackEvent('click_text')}
-      className="rounded-md border border-cyan-400/70 bg-cyan-400/10 px-5 py-3 font-semibold text-cyan-200 transition hover:bg-cyan-400/20"
+      className="rounded-md border border-brand-500/70 bg-brand-500/10 px-5 py-3 font-semibold text-brand-100 transition hover:bg-brand-500/20"
     >
       Text for a Fast Quote
     </Link>

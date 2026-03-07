@@ -1,1 +1,17 @@
-export default function ProcessSteps(){const s=['Call or Text','Confirm Scope & Schedule','We Clean + You See the Difference'];return <div><div className="grid gap-4 md:grid-cols-3">{s.map((x,i)=><div key={x} className="rounded border p-5"><p className="text-xs text-brand-700">Step {i+1}</p><h3 className="font-semibold">{x}</h3></div>)}</div><p className="mt-4 text-sm">We can share before/after photos on request.</p></div>}
+export default function ProcessSteps() {
+  const steps = ['Call or Text', 'Confirm Scope & Schedule', 'We Clean + You See the Difference'];
+
+  return (
+    <div>
+      <div className="grid gap-4 md:grid-cols-3">
+        {steps.map((step, index) => (
+          <div key={step} className="glass-card p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-cyan-200">Step {index + 1}</p>
+            <h3 className="mt-2 text-lg font-semibold text-white">{step}</h3>
+          </div>
+        ))}
+      </div>
+      <p className="mt-4 text-sm text-slate-300">Before/after photos are available on request for full transparency.</p>
+    </div>
+  );
+}

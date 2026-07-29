@@ -58,9 +58,9 @@ export default function Home() {
       </Section>
 
       <Section>
-        <h2 className="text-3xl font-semibold tracking-tight text-white">Project Proof</h2>
-        <p className="mt-3 text-slate-300">Real field photos can be added here as your final image library is selected.</p>
-        <div className="mt-6"><GalleryGrid /></div>
+        <h2 className="text-3xl font-semibold tracking-tight text-white">Recent Pressure Washing Projects</h2>
+        <p className="mt-3 text-slate-300">Real field photos from Operation Clean Freedom projects across Greater Houston.</p>
+        <div className="mt-6"><GalleryGrid variant="pressure" /></div>
         <Link href="/gallery" className="mt-5 inline-block font-semibold text-brand-200">View Full Gallery →</Link>
       </Section>
 

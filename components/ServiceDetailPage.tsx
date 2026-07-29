@@ -20,6 +20,7 @@ const process = [
 ];
 
 type AnimationType = 'window' | 'gutter' | 'pressure';
+type GalleryVariant = 'placeholder' | 'pressure';
 
 export default function ServiceDetailPage({
   title,
@@ -27,7 +28,8 @@ export default function ServiceDetailPage({
   includes,
   faqs,
   schema,
-  animation
+  animation,
+  galleryVariant = 'placeholder'
 }: {
   title: string;
   intro: string;
@@ -35,6 +37,7 @@ export default function ServiceDetailPage({
   faqs: { q: string; a: string }[];
   schema: object;
   animation?: AnimationType;
+  galleryVariant?: GalleryVariant;
 }) {
   return (
     <main>
@@ -88,7 +91,7 @@ export default function ServiceDetailPage({
       <Section>
         <div className="premium-panel p-6 sm:p-8">
           <h2 className="mb-5 text-3xl font-bold text-white">Recent Work</h2>
-          <GalleryGrid />
+          <GalleryGrid variant={galleryVariant} />
         </div>
       </Section>
       <CTASection />

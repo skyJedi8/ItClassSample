@@ -5,7 +5,7 @@ import { getMetadata } from '@/lib/seo';
 
 export const metadata = getMetadata(
   'Exterior Cleaning Gallery | Operation Clean Freedom Houston',
-  'See examples of gutter, window, pressure washing, roof soft wash, and drainage cleaning work across Greater Houston.',
+  'See completed pressure washing and exterior cleaning projects from Operation Clean Freedom across Greater Houston.',
   '/gallery'
 );
 
@@ -13,11 +13,12 @@ export default function Page() {
   return (
     <main>
       <Section>
-        <h1 className="text-4xl font-bold text-white">Project Gallery</h1>
-        <p className="mt-3 max-w-3xl text-slate-300">Real Operation Clean Freedom pressure washing project photos. Additional gutter, window, roof, and drainage photos will be added as the final image library is selected.</p>
-        <div className="mt-6"><GalleryGrid variant="pressure" /></div>
+        <p className="text-sm font-semibold uppercase tracking-[0.22em] text-brand-200">Real OCF field work</p>
+        <h1 className="mt-3 text-4xl font-bold text-white sm:text-5xl">Project Gallery</h1>
+        <p className="mt-4 max-w-3xl text-slate-300">Completed pressure-washing and exterior-cleaning projects from Operation Clean Freedom across the Greater Houston area.</p>
+        <div className="mt-8"><GalleryGrid variant="pressure" /></div>
       </Section>
-      <CTASection />
+      <CTASection title="Ready to restore your property’s exterior?" />
     </main>
   );
 }

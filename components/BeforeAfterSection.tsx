@@ -1,27 +1,26 @@
 import Image from 'next/image';
 
-const pairs = [
-  { before: 'gallery-2.svg', after: 'gallery-3.svg', label: 'Driveway + walkways refresh' },
-  { before: 'gallery-5.svg', after: 'gallery-6.svg', label: 'Exterior siding brightened' }
+const results = [
+  { src: '/images/projects/pwr1%20-%20Copy.png', label: 'Concrete surface cleaning' },
+  { src: '/images/projects/pwr5%20-%20Copy.png', label: 'Driveway and flatwork refresh' }
 ];
 
 export default function BeforeAfterSection() {
   return (
     <div className="grid gap-5 md:grid-cols-2">
-      {pairs.map((pair) => (
-        <article key={pair.label} className="premium-panel p-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-brand-200">Real Results</p>
-          <h3 className="mt-2 text-lg font-semibold text-white">{pair.label}</h3>
-          <div className="mt-4 grid grid-cols-2 gap-3">
-            <div>
-              <p className="mb-2 text-xs font-medium text-slate-300">Before</p>
-              <Image src={`/placeholders/${pair.before}`} alt="Before cleaning" width={800} height={600} className="h-36 w-full rounded-lg border border-slate-700 object-cover" />
-            </div>
-            <div>
-              <p className="mb-2 text-xs font-medium text-slate-300">After</p>
-              <Image src={`/placeholders/${pair.after}`} alt="After cleaning" width={800} height={600} className="h-36 w-full rounded-lg border border-brand-500/50 object-cover" />
-            </div>
-          </div>
+      {results.map((result) => (
+        <article key={result.src} className="premium-panel overflow-hidden p-4">
+          <Image
+            src={result.src}
+            alt={`Operation Clean Freedom ${result.label.toLowerCase()} result`}
+            width={1200}
+            height={900}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="h-64 w-full rounded-xl border border-slate-700 object-cover"
+          />
+          <p className="mt-4 text-xs font-semibold uppercase tracking-[0.15em] text-brand-200">Completed Project</p>
+          <h3 className="mt-2 text-lg font-semibold text-white">{result.label}</h3>
+          <p className="mt-2 text-sm text-slate-300">Real OCF field work with controlled cleaning, property protection, and final cleanup.</p>
         </article>
       ))}
     </div>

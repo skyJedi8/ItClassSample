@@ -29,7 +29,7 @@ export default function ServiceDetailPage({
   faqs,
   schema,
   animation,
-  galleryVariant = 'placeholder'
+  galleryVariant
 }: {
   title: string;
   intro: string;
@@ -83,17 +83,21 @@ export default function ServiceDetailPage({
         </div>
       </Section>
 
+      {galleryVariant && (
+        <Section>
+          <div className="premium-panel p-6 sm:p-8">
+            <h2 className="mb-2 text-3xl font-bold text-white">Recent Work</h2>
+            <p className="mb-5 text-slate-300">Completed Operation Clean Freedom projects in the Greater Houston area.</p>
+            <GalleryGrid variant={galleryVariant} />
+          </div>
+        </Section>
+      )}
+
       <Section>
-        <h2 className="mb-5 text-3xl font-bold text-white">FAQs</h2>
+        <h2 className="mb-5 text-3xl font-bold text-white">Frequently Asked Questions</h2>
         <FAQAccordion items={faqs} />
       </Section>
 
-      <Section>
-        <div className="premium-panel p-6 sm:p-8">
-          <h2 className="mb-5 text-3xl font-bold text-white">Recent Work</h2>
-          <GalleryGrid variant={galleryVariant} />
-        </div>
-      </Section>
       <CTASection />
     </main>
   );

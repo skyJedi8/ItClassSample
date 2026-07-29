@@ -38,28 +38,28 @@ export default function Home() {
       </Section>
 
       <Section>
-        <h2 className="text-3xl font-semibold tracking-tight text-white">Premium Exterior Cleaning Services</h2>
-        <p className="mt-3 max-w-3xl text-slate-300">Veteran-owned quality control and clear communication from first text to final walkthrough.</p>
+        <h2 className="text-3xl font-semibold tracking-tight text-white">Exterior Cleaning Services</h2>
+        <p className="mt-3 max-w-3xl text-slate-300">Straightforward quoting, careful property protection, and professional cleanup across every service.</p>
         <div className="mt-7"><ServiceCards /></div>
       </Section>
 
       <Section>
         <div className="premium-panel p-6 sm:p-8">
-          <h2 className="text-3xl font-semibold tracking-tight text-white">Real Results: Before + After</h2>
-          <p className="mt-3 max-w-2xl text-slate-300">We document visible outcomes so you know exactly what changed and what value you received.</p>
+          <h2 className="text-3xl font-semibold tracking-tight text-white">Completed Project Results</h2>
+          <p className="mt-3 max-w-2xl text-slate-300">Real pressure-washing work completed by Operation Clean Freedom in the Greater Houston area.</p>
           <div className="mt-6"><BeforeAfterSection /></div>
         </div>
       </Section>
 
       <Section>
         <h2 className="text-3xl font-semibold tracking-tight text-white">How It Works</h2>
-        <p className="mt-3 text-slate-300">Fast, veteran-owned process focused on reliability and detail.</p>
+        <p className="mt-3 text-slate-300">A simple process focused on speed, reliability, and clear expectations.</p>
         <div className="mt-6"><ProcessSteps /></div>
       </Section>
 
       <Section>
-        <h2 className="text-3xl font-semibold tracking-tight text-white">Recent Pressure Washing Projects</h2>
-        <p className="mt-3 text-slate-300">Real field photos from Operation Clean Freedom projects across Greater Houston.</p>
+        <h2 className="text-3xl font-semibold tracking-tight text-white">Recent OCF Work</h2>
+        <p className="mt-3 text-slate-300">Project photos from completed exterior-cleaning jobs.</p>
         <div className="mt-6"><GalleryGrid variant="pressure" /></div>
         <Link href="/gallery" className="mt-5 inline-block font-semibold text-brand-200">View Full Gallery →</Link>
       </Section>
@@ -67,7 +67,7 @@ export default function Home() {
       <Section>
         <div className="premium-panel p-6 sm:p-8">
           <h2 className="text-3xl font-semibold tracking-tight text-white">Client Testimonials</h2>
-          <p className="mt-3 text-slate-300">Trust is earned. Veteran-owned consistency keeps our reviews strong.</p>
+          <p className="mt-3 text-slate-300">Customers consistently highlight our work quality, professionalism, and responsiveness.</p>
           <div className="mt-6"><ReviewCarousel limit={6} /></div>
           <Link href="/reviews" className="mt-5 inline-block font-semibold text-brand-200">Read All Reviews →</Link>
         </div>
@@ -76,15 +76,15 @@ export default function Home() {
       <Section>
         <div className="glass-card p-6 sm:p-8">
           <h2 className="text-3xl font-semibold tracking-tight text-white">Commercial, HOA & Property Management</h2>
-          <p className="mt-3 max-w-3xl text-slate-300">Reliable recurring exterior cleaning for portfolios that need predictable communication, scheduling, and standards.</p>
-          <Link href="/commercial-hoa" className="mt-5 inline-block rounded-md bg-brand-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-brand-200">Talk to Us About Recurring Service</Link>
+          <p className="mt-3 max-w-3xl text-slate-300">Reliable recurring exterior cleaning for properties that need predictable communication, scheduling, and standards.</p>
+          <Link href="/commercial-hoa" className="mt-5 inline-block rounded-md bg-brand-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-brand-200">Discuss Recurring Service</Link>
         </div>
       </Section>
 
       <Section>
         <div className="glass-card p-6 sm:p-8">
-          <h2 className="text-3xl font-semibold tracking-tight text-white">Quick Quote Request</h2>
-          <p className="mt-3 max-w-2xl text-slate-300">Call, text, or submit the quick form. For the fastest quote, include your ZIP/address, service, timeframe, and preferred callback method.</p>
+          <h2 className="text-3xl font-semibold tracking-tight text-white">Request a Quote</h2>
+          <p className="mt-3 max-w-2xl text-slate-300">For the fastest quote, include the service address or ZIP, service needed, preferred timeframe, and callback preference.</p>
           <div className="mt-6"><QuoteForm compact /></div>
         </div>
       </Section>

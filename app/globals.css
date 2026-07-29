@@ -24,9 +24,64 @@ a {
 }
 
 @keyframes float-slow {
-  0%,
-  100% { transform: translateY(0px); }
+  0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
+}
+
+@keyframes bubble-rise {
+  0% { opacity: 0; transform: translateY(22px) scale(.75); }
+  18%, 58% { opacity: .78; }
+  76%, 100% { opacity: 0; transform: translateY(-34px) scale(.25); }
+}
+
+@keyframes squeegee-pass {
+  0%, 28% { top: -18%; opacity: 0; }
+  34% { opacity: 1; }
+  72% { top: 92%; opacity: 1; }
+  78%, 100% { top: 105%; opacity: 0; }
+}
+
+@keyframes sparkle-pop {
+  0%, 72% { opacity: 0; transform: scale(.25) rotate(-20deg); }
+  82% { opacity: 1; transform: scale(1.25) rotate(8deg); }
+  92%, 100% { opacity: .85; transform: scale(1) rotate(0); }
+}
+
+@keyframes leaf-clear {
+  0%, 25% { opacity: 1; translate: 0 0; }
+  62%, 100% { opacity: 0; translate: 130px -70px; rotate: 150deg; }
+}
+
+@keyframes air-sweep {
+  0%, 22% { opacity: 0; transform: translateX(-45%); }
+  35%, 70% { opacity: .8; }
+  80%, 100% { opacity: 0; transform: translateX(105%); }
+}
+
+@keyframes flow-confirm {
+  0%, 70% { opacity: 0; transform: translateY(8px); }
+  82%, 100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pressure-pass {
+  0%, 20% { clip-path: inset(0 100% 0 0); }
+  72%, 100% { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes wand-pass {
+  0%, 18% { transform: translate(-18%, -10%) rotate(-18deg); }
+  72%, 100% { transform: translate(72%, 28%) rotate(-8deg); }
+}
+
+@keyframes scan-down {
+  0% { transform: translateY(-120%); opacity: 0; }
+  15%, 75% { opacity: .8; }
+  100% { transform: translateY(420%); opacity: 0; }
+}
+
+@keyframes ring-pulse {
+  0%, 100% { opacity: .28; transform: scale(.92); }
+  50% { opacity: .8; transform: scale(1.04); }
 }
 
 @layer components {
@@ -43,5 +98,288 @@ a {
   .hero-glow {
     @apply absolute rounded-full blur-3xl;
     animation: float-slow 7s ease-in-out infinite;
+  }
+}
+
+.service-animation,
+.mission-animation {
+  position: relative;
+  min-height: 320px;
+  overflow: hidden;
+  border: 1px solid rgba(96, 165, 250, .3);
+  border-radius: 28px;
+  background: linear-gradient(145deg, rgba(15, 23, 42, .94), rgba(2, 6, 23, .98));
+  box-shadow: inset 0 1px 0 rgba(191, 219, 254, .12), 0 28px 70px rgba(15, 23, 42, .5);
+}
+
+.window-animation,
+.gutter-animation,
+.pressure-animation {
+  position: absolute;
+  inset: 22px;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.window-animation {
+  background: linear-gradient(145deg, rgba(125, 211, 252, .3), rgba(30, 64, 175, .14));
+  border: 1px solid rgba(224, 242, 254, .28);
+}
+
+.window-grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,.09) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.09) 1px, transparent 1px);
+  background-size: 50% 50%;
+}
+
+.clean-bubble {
+  position: absolute;
+  display: block;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.72);
+  background: rgba(255,255,255,.24);
+  box-shadow: inset 3px 3px 5px rgba(255,255,255,.28);
+  animation: bubble-rise 6.5s ease-in-out infinite;
+}
+
+.squeegee {
+  position: absolute;
+  left: 8%;
+  top: -18%;
+  width: 84%;
+  height: 16px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #e2e8f0, #64748b 48%, #0f172a 52%);
+  box-shadow: 0 14px 30px rgba(2, 6, 23, .45);
+  animation: squeegee-pass 6.5s cubic-bezier(.55,.04,.3,1) infinite;
+}
+
+.squeegee span {
+  position: absolute;
+  left: 50%;
+  top: -28px;
+  width: 62px;
+  height: 30px;
+  translate: -50% 0;
+  border-radius: 8px 8px 2px 2px;
+  background: #1e3a8a;
+}
+
+.clean-sparkle {
+  position: absolute;
+  right: 18%;
+  bottom: 22%;
+  color: #f8fafc;
+  font-size: 58px;
+  text-shadow: 0 0 28px rgba(186,230,253,.9);
+  animation: sparkle-pop 6.5s ease-in-out infinite;
+}
+
+.gutter-animation {
+  background: linear-gradient(180deg, rgba(30,41,59,.45), rgba(15,23,42,.95));
+}
+
+.roof-edge {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 86px;
+  transform: skewY(-5deg);
+  transform-origin: left top;
+  background: repeating-linear-gradient(90deg, #334155 0 34px, #1e293b 34px 68px);
+}
+
+.gutter-channel {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  bottom: 34px;
+  height: 72px;
+  border: 8px solid #94a3b8;
+  border-top: 0;
+  border-radius: 0 0 24px 24px;
+  background: linear-gradient(180deg, #334155, #0f172a);
+}
+
+.gutter-leaf {
+  position: absolute;
+  z-index: 3;
+  color: #d97706;
+  font-size: 24px;
+  text-shadow: 0 2px 4px rgba(0,0,0,.5);
+  animation: leaf-clear 6.5s ease-in-out infinite;
+}
+
+.air-stream {
+  position: absolute;
+  z-index: 4;
+  left: 4%;
+  bottom: 64px;
+  width: 70%;
+  animation: air-sweep 6.5s ease-in-out infinite;
+}
+
+.air-stream span {
+  display: block;
+  height: 2px;
+  margin: 12px 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, #7dd3fc, transparent);
+}
+
+.flow-check,
+.pressure-label {
+  position: absolute;
+  right: 18px;
+  bottom: 16px;
+  color: #bae6fd;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  animation: flow-confirm 6.5s ease-in-out infinite;
+}
+
+.pressure-animation {
+  background: #1e293b;
+}
+
+.concrete-dirty,
+.concrete-clean {
+  position: absolute;
+  inset: 0;
+}
+
+.concrete-dirty {
+  background: radial-gradient(circle at 20% 30%, #475569 0 7px, transparent 8px), radial-gradient(circle at 70% 65%, #0f172a 0 11px, transparent 12px), linear-gradient(135deg, #475569, #1e293b);
+  background-size: 72px 72px, 110px 110px, auto;
+}
+
+.concrete-clean {
+  background: linear-gradient(135deg, #cbd5e1, #64748b);
+  animation: pressure-pass 6.5s ease-in-out infinite;
+}
+
+.washer-wand {
+  position: absolute;
+  z-index: 5;
+  left: 6%;
+  top: 16%;
+  width: 58%;
+  height: 8px;
+  transform-origin: left center;
+  border-radius: 999px;
+  background: #e2e8f0;
+  box-shadow: 0 0 0 3px #0f172a;
+  animation: wand-pass 6.5s ease-in-out infinite;
+}
+
+.spray-fan {
+  position: absolute;
+  z-index: 4;
+  left: 46%;
+  top: 28%;
+  width: 180px;
+  height: 140px;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  background: linear-gradient(180deg, rgba(186,230,253,.72), rgba(125,211,252,0));
+  filter: blur(2px);
+  animation: flow-confirm 6.5s ease-in-out infinite;
+}
+
+.clean-line {
+  position: absolute;
+  z-index: 6;
+  left: 0;
+  right: 0;
+  top: 55%;
+  height: 2px;
+  background: rgba(224,242,254,.82);
+  box-shadow: 0 0 18px rgba(125,211,252,.8);
+  animation: pressure-pass 6.5s ease-in-out infinite;
+}
+
+.mission-animation {
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+}
+
+.mission-grid {
+  position: absolute;
+  inset: 0;
+  opacity: .35;
+  background-image: linear-gradient(rgba(96,165,250,.15) 1px, transparent 1px), linear-gradient(90deg, rgba(96,165,250,.15) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+.mission-ring {
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  border: 1px solid rgba(96,165,250,.45);
+  border-radius: 999px;
+  animation: ring-pulse 5s ease-in-out infinite;
+}
+
+.ring-two {
+  width: 310px;
+  height: 310px;
+  animation-delay: -2.5s;
+}
+
+.mission-scan {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 16%;
+  height: 72px;
+  background: linear-gradient(180deg, transparent, rgba(56,189,248,.18), transparent);
+  border-bottom: 1px solid rgba(125,211,252,.7);
+  animation: scan-down 5s linear infinite;
+}
+
+.mission-center {
+  position: relative;
+  z-index: 3;
+  max-width: 290px;
+  text-align: center;
+}
+
+.mission-center strong,
+.mission-center small,
+.mission-kicker { display: block; }
+.mission-kicker { color: #7dd3fc; font-size: 11px; font-weight: 700; letter-spacing: .22em; }
+.mission-center strong { margin-top: 12px; color: white; font-size: 24px; letter-spacing: .05em; }
+.mission-center small { margin-top: 12px; color: #cbd5e1; line-height: 1.6; }
+
+.mission-node {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #38bdf8;
+  box-shadow: 0 0 24px #38bdf8;
+  animation: ring-pulse 3s ease-in-out infinite;
+}
+.node-one { left: 16%; top: 22%; }
+.node-two { right: 14%; top: 36%; animation-delay: -1s; }
+.node-three { left: 22%; bottom: 18%; animation-delay: -2s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-glow,
+  .clean-bubble,
+  .squeegee,
+  .clean-sparkle,
+  .gutter-leaf,
+  .air-stream,
+  .flow-check,
+  .concrete-clean,
+  .washer-wand,
+  .spray-fan,
+  .clean-line,
+  .mission-ring,
+  .mission-scan,
+  .mission-node {
+    animation: none !important;
   }
 }

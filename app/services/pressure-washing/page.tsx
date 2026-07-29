@@ -21,6 +21,7 @@ export default function Page() {
       includes={['Driveway, sidewalk, and patio cleaning', 'Surface-safe pressure selection', 'Targeted treatment for organic buildup', 'Post-clean rinse and site cleanup']}
       faqs={faqs}
       animation="pressure"
+      galleryVariant="pressure"
       schema={serviceSchema('Pressure Washing', 'Surface-safe power washing for exterior hardscapes and select siding.', '/services/pressure-washing')}
     />
   );

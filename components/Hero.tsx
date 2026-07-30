@@ -4,16 +4,16 @@ import { CallButton, TextButton } from './CTAButtons';
 
 const proofImages = [
   {
-    src: '/images/projects/pwr1%20-%20Copy.png',
-    alt: 'Concrete driveway pressure washing in Houston TX by Operation Clean Freedom'
+    src: '/images/curated/pressure-washing-clean-driveway.webp',
+    alt: 'Completed concrete driveway pressure washing project in Houston TX by Operation Clean Freedom'
+  },
+  {
+    src: '/images/curated/pressure-washing-in-progress.webp',
+    alt: 'Pressure washing in progress with a visible dirty-to-clean transition on Houston concrete'
   },
   {
     src: '/images/projects/pwr2.png',
     alt: 'Surface cleaner pressure washing a residential driveway in Houston TX'
-  },
-  {
-    src: '/images/projects/pwr4.png',
-    alt: 'Clean concrete after professional pressure washing in Greater Houston'
   }
 ];
 

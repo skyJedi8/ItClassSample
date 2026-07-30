@@ -63,7 +63,7 @@ export default function Hero() {
                 width={1200}
                 height={900}
                 sizes="(max-width: 640px) 100vw, 50vw"
-                className={`w-full rounded-xl border border-slate-700 object-cover ${index === 0 ? 'h-56 sm:col-span-2' : 'h-40'}`}
+                className={`w-full rounded-xl border border-slate-700 object-cover ${index === 0 ? 'h-56 object-top sm:col-span-2' : 'h-40 object-center'}`}
                 priority={index === 0}
               />
             ))}

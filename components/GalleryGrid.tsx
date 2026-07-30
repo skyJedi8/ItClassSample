@@ -20,6 +20,14 @@ const placeholderImages: GalleryImage[] = [
 }));
 
 const pressureImages: GalleryImage[] = [
+  {
+    src: '/images/curated/pressure-washing-clean-driveway.webp',
+    alt: 'Completed concrete driveway pressure washing project in Houston TX by Operation Clean Freedom'
+  },
+  {
+    src: '/images/curated/pressure-washing-in-progress.webp',
+    alt: 'Surface cleaner creating a visible dirty-to-clean transition on a Houston driveway'
+  },
   { src: '/images/projects/pwr1%20-%20Copy.png', alt: 'Concrete driveway pressure washing in Houston TX by Operation Clean Freedom' },
   { src: '/images/projects/pwr2.png', alt: 'Surface cleaner removing buildup from a Houston area driveway' },
   { src: '/images/projects/pwr3.png', alt: 'Residential concrete cleaning project in Greater Houston TX' },

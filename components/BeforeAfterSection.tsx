@@ -4,12 +4,14 @@ const results = [
   {
     src: '/images/curated/pressure-washing-in-progress.webp',
     label: 'Controlled cleaning in progress',
-    alt: 'Pressure washing in progress with a visible dirty-to-clean transition on Houston concrete'
+    alt: 'Pressure washing in progress with a visible dirty-to-clean transition on Houston concrete',
+    objectPosition: 'object-center'
   },
   {
     src: '/images/curated/pressure-washing-clean-driveway.webp',
     label: 'Completed driveway cleaning',
-    alt: 'Clean residential concrete driveway after professional pressure washing in Houston TX'
+    alt: 'Clean residential concrete driveway after professional pressure washing in Houston TX',
+    objectPosition: 'object-top'
   }
 ];
 
@@ -24,7 +26,7 @@ export default function BeforeAfterSection() {
             width={1200}
             height={900}
             sizes="(max-width: 768px) 100vw, 50vw"
-            className="h-64 w-full rounded-xl border border-slate-700 object-cover"
+            className={`h-64 w-full rounded-xl border border-slate-700 object-cover ${result.objectPosition}`}
           />
           <p className="mt-4 text-xs font-semibold uppercase tracking-[0.15em] text-brand-200">Real OCF Project</p>
           <h3 className="mt-2 text-lg font-semibold text-white">{result.label}</h3>

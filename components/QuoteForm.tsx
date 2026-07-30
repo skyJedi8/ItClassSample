@@ -17,7 +17,13 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
     try {
       const fd = new FormData(e.currentTarget);
       const payload = Object.fromEntries(fd.entries());
-      payload.servicesNeeded = fd.getAll('servicesNeeded').join(', ');
+      const selectedServices = fd.getAll('servicesNeeded');
+      if (selectedServices.length === 0) {
+        setStatus('Please select at least one service.');
+        setSending(false);
+        return;
+      }
+      payload.servicesNeeded = selectedServices.join(', ');
       const res = await fetch('/api/quote', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -39,29 +45,46 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
     }
   }
 
-  const inputClass = 'rounded-lg border border-slate-700 bg-slate-950/70 p-3 text-slate-100 placeholder:text-slate-500 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500/30';
+  const inputClass = 'mt-1 w-full rounded-lg border border-slate-700 bg-slate-950/70 p-3 text-slate-100 placeholder:text-slate-500 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500/30';
+  const labelClass = 'text-sm font-medium text-slate-200';
 
   return (
     <form onSubmit={onSubmit} className="space-y-4 rounded-2xl border border-slate-700/70 bg-slate-950/45 p-5" aria-label="Quote request form">
       <input name="company" className="hidden" tabIndex={-1} autoComplete="off" />
       <div className={`grid gap-3 ${compact ? '' : 'md:grid-cols-2'}`}>
-        <input required name="fullName" placeholder="Full name*" className={inputClass} />
-        <input required name="phone" type="tel" placeholder="Phone*" className={inputClass} />
-        <input name="email" type="email" placeholder="Email" className={inputClass} />
-        <input required name="serviceAddress" placeholder="Service address / ZIP*" className={inputClass} />
-        <select required name="propertyType" className={inputClass} defaultValue="">
-          <option value="" disabled>Property type*</option>
-          <option>Home</option><option>Commercial</option><option>HOA</option><option>Rental / real estate</option><option>Apartment / multi-unit</option>
-        </select>
-        <select name="stories" className={inputClass} defaultValue="">
-          <option value="">Stories / height</option><option>1</option><option>2</option><option>3+</option><option>Not applicable</option>
-        </select>
-        <select required name="timeframe" className={inputClass} defaultValue="">
-          <option value="" disabled>Preferred timeframe*</option><option>As soon as possible</option><option>This week</option><option>Next week</option><option>Specific date</option><option>Planning / estimate only</option>
-        </select>
-        <select required name="contactPreference" className={inputClass} defaultValue="">
-          <option value="" disabled>Preferred contact*</option><option>Text</option><option>Phone call</option><option>Email</option>
-        </select>
+        <label className={labelClass}>Full name*
+          <input required name="fullName" autoComplete="name" placeholder="Your name" className={inputClass} />
+        </label>
+        <label className={labelClass}>Phone*
+          <input required name="phone" type="tel" autoComplete="tel" placeholder="Best callback number" className={inputClass} />
+        </label>
+        <label className={labelClass}>Email
+          <input name="email" type="email" autoComplete="email" placeholder="Optional" className={inputClass} />
+        </label>
+        <label className={labelClass}>Service address or ZIP*
+          <input required name="serviceAddress" autoComplete="street-address" placeholder="Property location" className={inputClass} />
+        </label>
+        <label className={labelClass}>Property type*
+          <select required name="propertyType" className={inputClass} defaultValue="">
+            <option value="" disabled>Select one</option>
+            <option>Home</option><option>Commercial</option><option>HOA</option><option>Rental / real estate</option><option>Apartment / multi-unit</option>
+          </select>
+        </label>
+        <label className={labelClass}>Stories or height
+          <select name="stories" className={inputClass} defaultValue="">
+            <option value="">Select if relevant</option><option>1</option><option>2</option><option>3+</option><option>Not applicable</option>
+          </select>
+        </label>
+        <label className={labelClass}>Preferred timeframe*
+          <select required name="timeframe" className={inputClass} defaultValue="">
+            <option value="" disabled>Select one</option><option>As soon as possible</option><option>This week</option><option>Next week</option><option>Specific date</option><option>Planning / estimate only</option>
+          </select>
+        </label>
+        <label className={labelClass}>Preferred contact*
+          <select required name="contactPreference" className={inputClass} defaultValue="">
+            <option value="" disabled>Select one</option><option>Text</option><option>Phone call</option><option>Email</option>
+          </select>
+        </label>
       </div>
 
       <fieldset>
@@ -76,10 +99,13 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
         </div>
       </fieldset>
 
-      <textarea name="message" placeholder="Tell us about the scope, access, timing, gutter guards, or concerns" className={`w-full ${inputClass}`} rows={4} />
+      <label className={`block ${labelClass}`}>Project notes
+        <textarea name="message" placeholder="Scope, access, timing, gutter guards, or concerns" className={inputClass} rows={4} />
+      </label>
       <button disabled={sending} className="rounded-lg bg-brand-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-brand-200 disabled:cursor-wait disabled:opacity-60" type="submit">
         {sending ? 'Sending…' : 'Send Quote Request'}
       </button>
+      <p className="text-xs text-slate-400">For urgent scheduling or the fastest response, call or text 346-306-7622.</p>
       {status && <p className="text-sm text-slate-200" role="status">{status}</p>}
     </form>
   );

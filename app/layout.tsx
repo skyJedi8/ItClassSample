@@ -7,8 +7,24 @@ import StickyContactBar from '@/components/StickyContactBar';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Operation Clean Freedom',
+  metadataBase: new URL(siteConfig.baseUrl),
+  title: {
+    default: 'Operation Clean Freedom | Veteran-Owned Exterior Cleaning',
+    template: '%s'
+  },
   description: siteConfig.tagline,
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    siteName: 'Operation Clean Freedom',
+    title: 'Operation Clean Freedom | Veteran-Owned Exterior Cleaning',
+    description: 'Veteran-owned exterior cleaning across Greater Houston. Call or text for gutters, windows, pressure washing, roof cleaning, and drainage service.'
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Operation Clean Freedom',
+    description: siteConfig.tagline
+  },
   icons: {
     icon: '/icon.svg',
     shortcut: '/icon.svg',
@@ -17,5 +33,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <html lang="en"><body><Header />{children}<Footer/><StickyContactBar/>{siteConfig.gtmId && <Script id="gtm" strategy="afterInteractive">{`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${siteConfig.gtmId}');`}</Script>}</body></html>;
+  return <html lang="en"><body className="overflow-x-hidden"><Header />{children}<Footer/><StickyContactBar/>{siteConfig.gtmId && <Script id="gtm" strategy="afterInteractive">{`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${siteConfig.gtmId}');`}</Script>}</body></html>;
 }

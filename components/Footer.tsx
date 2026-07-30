@@ -7,11 +7,11 @@ import BrandLogo from './BrandLogo';
 
 export default function Footer() {
   return (
-    <footer className="mt-20 border-t border-slate-800 bg-slate-950/90 py-10">
+    <footer className="mt-20 border-t border-slate-800 bg-slate-950/90 pb-24 pt-10 md:pb-10">
       <Container>
         <div className="mb-8">
           <BrandLogo full className="max-w-full" />
-          <p className="mt-2 text-sm text-slate-300">Veteran-owned and operated in Greater Houston.</p>
+          <p className="mt-3 max-w-xl text-sm text-slate-300">Veteran-owned exterior cleaning for homes, rentals, HOAs, commercial properties, and managed communities across Greater Houston.</p>
         </div>
         <div className="grid gap-8 text-sm md:grid-cols-4">
           <div>
@@ -32,9 +32,9 @@ export default function Footer() {
           </div>
           <div>
             <h3 className="font-semibold text-brand-100">Contact</h3>
-            <p className="text-slate-300">{siteConfig.phoneDisplay}</p>
-            <p className="text-slate-300">{siteConfig.email}</p>
-            <p className="text-slate-300">{siteConfig.hours}</p>
+            <a className="mt-2 block text-slate-300 hover:text-brand-200" href={siteConfig.phoneLink}>{siteConfig.phoneDisplay}</a>
+            <a className="mt-2 block break-all text-slate-300 hover:text-brand-200" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+            <p className="mt-2 text-slate-300">{siteConfig.hours}</p>
           </div>
           <div>
             <h3 className="font-semibold text-brand-100">Legal</h3>

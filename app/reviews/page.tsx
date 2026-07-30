@@ -1,4 +1,29 @@
 import Link from 'next/link';
-import Section from '@/components/Section';import ReviewCarousel from '@/components/ReviewCarousel';import { getMetadata } from '@/lib/seo';import { siteConfig } from '@/lib/site';
-export const metadata=getMetadata('Customer Reviews | Operation Clean Freedom','Read customer feedback from Thumbtack for gutter cleaning, window cleaning, and more.','/reviews');
-export default function Page(){return <main><Section><h1 className="text-4xl font-bold">What Customers Say</h1><p className="mt-3">Reviews shown are from Thumbtack customers.</p><div className="mt-6"><ReviewCarousel limit={10}/></div><Link href={siteConfig.thumbtackUrl} className="mt-6 inline-block rounded bg-brand-600 px-4 py-2 text-white" target="_blank">Read More on Thumbtack</Link><div className="mt-10 rounded border p-5"><h2 className="text-2xl font-semibold">Google Reviews</h2><p className="mt-2">We’re building our Google reviews. If we’ve helped you, we’d appreciate your feedback.</p>{siteConfig.googleReviewUrl && <Link className="mt-3 inline-block text-brand-700" href={siteConfig.googleReviewUrl}>Leave a Google Review</Link>}</div></Section></main>}
+import Section from '@/components/Section';
+import ReviewCarousel from '@/components/ReviewCarousel';
+import CTASection from '@/components/CTASection';
+import { getMetadata } from '@/lib/seo';
+import { siteConfig } from '@/lib/site';
+
+export const metadata = getMetadata(
+  'Customer Reviews | Operation Clean Freedom',
+  'Read verified Thumbtack customer feedback for gutter cleaning, window cleaning, and exterior cleaning.',
+  '/reviews'
+);
+
+export default function Page() {
+  return (
+    <main>
+      <Section>
+        <p className="text-sm font-semibold uppercase tracking-[0.22em] text-brand-200">Verified customer feedback</p>
+        <h1 className="mt-3 text-4xl font-bold text-white sm:text-5xl">What Customers Say About OCF</h1>
+        <p className="mt-5 max-w-3xl text-lg text-slate-300">These reviews are from Thumbtack customers and are shown using the reviewer’s original comments.</p>
+        <div className="mt-8"><ReviewCarousel limit={10} /></div>
+        <Link href={siteConfig.thumbtackUrl} className="mt-7 inline-flex rounded-lg bg-brand-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-brand-200" target="_blank" rel="noreferrer">
+          Read More on Thumbtack <span className="ml-2" aria-hidden="true">↗</span>
+        </Link>
+      </Section>
+      <CTASection title="Ready to see the OCF standard at your property?" />
+    </main>
+  );
+}

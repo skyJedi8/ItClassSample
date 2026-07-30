@@ -3,7 +3,13 @@
 import { FormEvent, useState } from 'react';
 import { trackEvent } from '@/lib/analytics';
 
-const options = ['Gutter cleaning', 'Window cleaning', 'Pressure/power washing', 'Roof cleaning (soft wash)', 'Landscape drainage cleaning'];
+const options = [
+  'Gutter cleaning',
+  'Pressure/power washing',
+  'Roof cleaning (soft wash)',
+  'Landscape drainage cleaning',
+  'Window cleaning add-on (bundle only)'
+];
 
 export default function QuoteForm({ compact = false }: { compact?: boolean }) {
   const [status, setStatus] = useState('');
@@ -20,6 +26,11 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
       const selectedServices = fd.getAll('servicesNeeded');
       if (selectedServices.length === 0) {
         setStatus('Please select at least one service.');
+        setSending(false);
+        return;
+      }
+      if (selectedServices.length === 1 && selectedServices[0] === 'Window cleaning add-on (bundle only)') {
+        setStatus('Window cleaning is available only as an add-on. Please select a primary exterior service too.');
         setSending(false);
         return;
       }

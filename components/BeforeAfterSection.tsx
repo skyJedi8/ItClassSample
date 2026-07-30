@@ -1,8 +1,16 @@
 import Image from 'next/image';
 
 const results = [
-  { src: '/images/projects/pwr1%20-%20Copy.png', label: 'Concrete surface cleaning' },
-  { src: '/images/projects/pwr5%20-%20Copy.png', label: 'Driveway and flatwork refresh' }
+  {
+    src: '/images/projects/pwr1%20-%20Copy.png',
+    label: 'Concrete surface cleaning',
+    alt: 'Concrete driveway pressure washing in Houston TX by Operation Clean Freedom'
+  },
+  {
+    src: '/images/projects/pwr5%20-%20Copy.png',
+    label: 'Driveway and flatwork refresh',
+    alt: 'Houston TX driveway and flatwork after professional pressure washing'
+  }
 ];
 
 export default function BeforeAfterSection() {
@@ -12,7 +20,7 @@ export default function BeforeAfterSection() {
         <article key={result.src} className="premium-panel overflow-hidden p-4">
           <Image
             src={result.src}
-            alt={`Operation Clean Freedom ${result.label.toLowerCase()} result`}
+            alt={result.alt}
             width={1200}
             height={900}
             sizes="(max-width: 768px) 100vw, 50vw"

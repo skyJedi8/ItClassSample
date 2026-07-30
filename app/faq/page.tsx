@@ -13,7 +13,7 @@ const items = [
   { q: 'What areas do you serve?', a: 'Greater Houston and surrounding communities within about 50 miles.' },
   { q: 'Are you insured?', a: 'Yes. Operation Clean Freedom is fully insured with $2M aggregate general liability.' },
   { q: 'How do I get the fastest quote?', a: 'Call or text 346-306-7622 with the service address, requested services, preferred timeframe, and photos when possible.' },
-  { q: 'Can I bundle services?', a: 'Yes. Gutters + Windows is a common bundle, and other scopes can be combined into one visit.' },
+  { q: 'Can I bundle services?', a: 'Yes. Exterior window cleaning is available only as an add-on to an eligible primary service, and other scopes can be combined into one visit.' },
   { q: 'Do you offer commercial and HOA service?', a: 'Yes. OCF works with commercial properties, HOAs, property managers, rentals, and smaller multi-unit properties.' },
   { q: 'What are your hours?', a: 'Regular hours are 8:00 AM–5:00 PM. After-hours calls are accepted for urgent scheduling and quoting.' },
   { q: 'Do you clean up after service?', a: 'Yes. Professional cleanup and a final confirmation are part of the OCF process.' },

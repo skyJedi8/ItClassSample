@@ -10,7 +10,9 @@ export default function ServiceCards() {
           href={`/services/${service.slug}`}
           className="glass-card group p-6 transition hover:-translate-y-1 hover:border-brand-200/50"
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-brand-200">Veteran-Owned Service</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-brand-200">
+            {service.slug === 'window-cleaning' ? 'Bundled Add-On Only' : 'Veteran-Owned Service'}
+          </p>
           <h3 className="mt-2 text-xl font-semibold text-white">{service.name}</h3>
           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-300">
             {service.includes.slice(0, 2).map((item) => (

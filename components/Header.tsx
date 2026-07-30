@@ -3,8 +3,9 @@ import { siteConfig } from '@/lib/site';
 import { CallButton, TextButton } from './CTAButtons';
 import BrandLogo from './BrandLogo';
 import Link from 'next/link';
+import { serviceAreas } from '@/lib/areas';
 
-const nav = [['Home', '/'], ['Services', '/services'], ['Service Areas', '/service-areas'], ['Commercial/HOA', '/commercial-hoa'], ['About', '/about'], ['Gallery', '/gallery'], ['Reviews', '/reviews'], ['Contact', '/contact']];
+const nav = [['Home', '/'], ['Services', '/services'], ['Commercial/HOA', '/commercial-hoa'], ['About', '/about'], ['Gallery', '/gallery'], ['Reviews', '/reviews'], ['Contact', '/contact']];
 
 export default function Header() {
   return (
@@ -29,6 +30,16 @@ export default function Header() {
                     {label}
                   </Link>
                 ))}
+                <Link href="/service-areas" className="rounded-lg px-3 py-2.5 text-sm font-semibold text-brand-200 transition hover:bg-slate-800">
+                  Service Areas
+                </Link>
+                <div className="grid grid-cols-2 gap-1 border-l border-slate-700 pl-3">
+                  {serviceAreas.map((area) => (
+                    <Link key={area.slug} href={`/service-areas/${area.slug}`} className="rounded-md px-2 py-2 text-xs text-slate-300 transition hover:bg-slate-800 hover:text-white">
+                      {area.name}
+                    </Link>
+                  ))}
+                </div>
               </div>
               <div className="mt-3 grid grid-cols-2 gap-2 border-t border-slate-800 pt-3">
                 <CallButton />
@@ -44,6 +55,19 @@ export default function Header() {
                 {label}
               </Link>
             ))}
+            <details className="group relative">
+              <summary className="cursor-pointer list-none transition hover:text-brand-200">
+                Service Areas <span aria-hidden="true" className="text-brand-200">▾</span>
+              </summary>
+              <div className="absolute left-1/2 top-[calc(100%+0.75rem)] z-50 w-52 -translate-x-1/2 rounded-xl border border-slate-700 bg-slate-950 p-2 shadow-2xl">
+                <Link href="/service-areas" className="block rounded-lg px-3 py-2 font-semibold text-brand-200 hover:bg-slate-800">All Service Areas</Link>
+                {serviceAreas.map((area) => (
+                  <Link key={area.slug} href={`/service-areas/${area.slug}`} className="block rounded-lg px-3 py-2 text-slate-300 hover:bg-slate-800 hover:text-white">
+                    {area.name}
+                  </Link>
+                ))}
+              </div>
+            </details>
           </div>
         </nav>
       </Container>

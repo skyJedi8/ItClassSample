@@ -7,7 +7,7 @@ import { siteConfig } from '@/lib/site';
 
 export const metadata = getMetadata(
   'Customer Reviews | Operation Clean Freedom',
-  'Read verified Thumbtack customer feedback for gutter cleaning, window cleaning, and exterior cleaning.',
+  'Read verified Thumbtack customer feedback about Operation Clean Freedom’s gutter and exterior-cleaning work.',
   '/reviews'
 );
 

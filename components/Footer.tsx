@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Container from './Container';
 import { siteConfig } from '@/lib/site';
 import { services } from '@/lib/services';
-import { areas } from '@/lib/areas';
+import { serviceAreas } from '@/lib/areas';
 import BrandLogo from './BrandLogo';
 
 export default function Footer() {
@@ -24,9 +24,9 @@ export default function Footer() {
           </div>
           <div>
             <h3 className="font-semibold text-brand-100">Service Areas</h3>
-            {areas.map((area) => (
-              <Link className="mt-2 block text-slate-300" key={area} href={`/service-areas/${area.toLowerCase().replace(' ', '-')}`}>
-                {area}
+            {serviceAreas.map((area) => (
+              <Link className="mt-2 block text-slate-300" key={area.slug} href={`/service-areas/${area.slug}`}>
+                {area.name}
               </Link>
             ))}
           </div>

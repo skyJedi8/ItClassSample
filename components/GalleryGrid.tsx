@@ -20,11 +20,11 @@ const placeholderImages: GalleryImage[] = [
 }));
 
 const pressureImages: GalleryImage[] = [
-  { src: '/images/projects/pwr1%20-%20Copy.png', alt: 'Operation Clean Freedom pressure washing project' },
-  { src: '/images/projects/pwr2.png', alt: 'Operation Clean Freedom concrete cleaning result' },
-  { src: '/images/projects/pwr3.png', alt: 'Operation Clean Freedom exterior surface cleaning project' },
-  { src: '/images/projects/pwr4.png', alt: 'Operation Clean Freedom pressure washing work sample' },
-  { src: '/images/projects/pwr5%20-%20Copy.png', alt: 'Operation Clean Freedom completed power washing project' }
+  { src: '/images/projects/pwr1%20-%20Copy.png', alt: 'Concrete driveway pressure washing in Houston TX by Operation Clean Freedom' },
+  { src: '/images/projects/pwr2.png', alt: 'Surface cleaner removing buildup from a Houston area driveway' },
+  { src: '/images/projects/pwr3.png', alt: 'Residential concrete cleaning project in Greater Houston TX' },
+  { src: '/images/projects/pwr4.png', alt: 'Clean concrete surface after Houston pressure washing service' },
+  { src: '/images/projects/pwr5%20-%20Copy.png', alt: 'Driveway and flatwork pressure washing result in Houston TX' }
 ];
 
 export default function GalleryGrid({ variant = 'placeholder' }: { variant?: GalleryVariant }) {

@@ -3,9 +3,18 @@ import Link from 'next/link';
 import { CallButton, TextButton } from './CTAButtons';
 
 const proofImages = [
-  { src: '/images/projects/pwr1%20-%20Copy.png', alt: 'Freshly cleaned Houston driveway and walkways by Operation Clean Freedom' },
-  { src: '/images/projects/pwr2.png', alt: 'Operation Clean Freedom technician surface cleaning a driveway' },
-  { src: '/images/projects/pwr4.png', alt: 'Operation Clean Freedom pressure washing result' }
+  {
+    src: '/images/projects/pwr1%20-%20Copy.png',
+    alt: 'Concrete driveway pressure washing in Houston TX by Operation Clean Freedom'
+  },
+  {
+    src: '/images/projects/pwr2.png',
+    alt: 'Surface cleaner pressure washing a residential driveway in Houston TX'
+  },
+  {
+    src: '/images/projects/pwr4.png',
+    alt: 'Clean concrete after professional pressure washing in Greater Houston'
+  }
 ];
 
 export default function Hero() {
@@ -19,10 +28,10 @@ export default function Hero() {
             Veteran-Owned • Fully Insured • Greater Houston
           </p>
           <h1 className="mt-5 text-4xl font-semibold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Veteran-Owned Exterior Cleaning. Visible Results. No Guesswork.
+            Veteran-Owned Exterior Cleaning &amp; Pressure Washing in Houston, TX
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300">
-            Professional gutter, window, roof, pressure-washing, and drainage service for homes and managed properties across Greater Houston.
+            Professional gutter cleaning, pressure washing, roof soft washing, and drainage service for homes and managed properties across Greater Houston. Window cleaning is available as a bundled add-on.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <CallButton />

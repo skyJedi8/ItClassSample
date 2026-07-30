@@ -22,7 +22,7 @@ export default function Page() {
       <Section>
         <p className="text-sm font-semibold uppercase tracking-[0.22em] text-brand-200">Commercial • HOA • Property Management</p>
         <h1 className="mt-3 max-w-5xl text-4xl font-bold text-white sm:text-5xl">A Reliable Exterior-Cleaning Partner for Properties That Need Consistency</h1>
-        <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-300">OCF helps owners and managers maintain storefronts, walkways, common areas, windows, gutters, and exterior surfaces with fewer follow-up headaches.</p>
+        <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-300">OCF helps owners and managers maintain walkways, common areas, gutters, roofs, drainage systems, and exterior surfaces with fewer follow-up headaches. Exterior window cleaning may be included as a bundled add-on.</p>
         <div className="mt-9 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {benefits.map(([title, copy]) => (
             <article key={title} className="glass-card p-5">

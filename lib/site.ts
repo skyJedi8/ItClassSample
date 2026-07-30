@@ -9,7 +9,7 @@ export const siteConfig = {
   thumbtackUrl:
     'https://www.thumbtack.com/tx/conroe/pressure-washing/operation-clean-freedom/service/510589623533772810',
   serviceRadius: 'Houston metro + 50-mile radius',
-  baseUrl: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+  baseUrl: 'https://www.operationcleanfreedom.com',
   gtmId: process.env.NEXT_PUBLIC_GTM_ID || '',
   googleReviewUrl: process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL || ''
 };

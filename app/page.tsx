@@ -14,8 +14,8 @@ import { getMetadata } from '@/lib/seo';
 import { localBusinessSchema } from '@/lib/schema';
 
 export const metadata = getMetadata(
-  'Exterior Cleaning in Houston, TX | Operation Clean Freedom',
-  'Veteran-owned exterior cleaning for gutters, windows, roof soft wash, pressure washing, and drainage cleaning across Greater Houston.',
+  'Veteran-Owned Pressure Washing in Houston, TX | OCF',
+  'Veteran-owned pressure washing, gutter cleaning, roof soft washing, and drainage cleaning across Greater Houston. Window cleaning available as a bundled add-on.',
   '/'
 );
 

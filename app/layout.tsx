@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     siteName: 'Operation Clean Freedom',
     title: 'Operation Clean Freedom | Veteran-Owned Exterior Cleaning',
-    description: 'Veteran-owned exterior cleaning across Greater Houston. Call or text for gutters, windows, pressure washing, roof cleaning, and drainage service.'
+    description: 'Veteran-owned pressure washing, gutter cleaning, roof soft washing, and drainage service across Greater Houston.'
   },
   twitter: {
     card: 'summary',

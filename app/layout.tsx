@@ -13,6 +13,9 @@ export const metadata: Metadata = {
     template: '%s'
   },
   description: siteConfig.tagline,
+  verification: {
+    google: 'FJx5D17tKISU38eJSBGObEG-SDcZA8-IXflshgsGl8M'
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',

@@ -1,4 +1,12 @@
 import AreaPage from '@/components/AreaPage';
 import { getMetadata } from '@/lib/seo';
-export const metadata = getMetadata('Pressure Washing & Exterior Cleaning in Spring, TX | OCF','Gutter cleaning, pressure washing, roof soft washing, and landscape drainage cleaning for Spring, Texas properties.','/service-areas/spring');
-export default function Page(){ return <AreaPage city="Spring" />; }
+
+export const metadata = getMetadata(
+  'Pressure Washing in Spring, TX | Operation Clean Freedom',
+  'Veteran-owned pressure washing, gutter cleaning, roof soft washing, and accessible drainage cleaning for homes and managed properties in Spring, Texas.',
+  '/service-areas/spring'
+);
+
+export default function Page() {
+  return <AreaPage city="Spring" />;
+}

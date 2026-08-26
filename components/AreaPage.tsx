@@ -211,7 +211,7 @@ export default function AreaPage({ city }: { city: string }) {
               <p className="mt-3 text-slate-300">{profile.nearbyCommunities.join(' • ')}</p>
               <p className="mt-4 text-sm leading-relaxed text-slate-300">{profile.quoteNote}</p>
             </div>
-            {nearbyPages.length > 0 && (
+            {nearbyPages.length > 0 ? (
               <div className="glass-card p-6">
                 <h2 className="text-xl font-semibold text-white">Nearby service-area pages</h2>
                 <div className="mt-4 flex flex-wrap gap-3">
@@ -222,7 +222,7 @@ export default function AreaPage({ city }: { city: string }) {
                   ))}
                 </div>
               </div>
-            )}
+            ) : null}
           </div>
           <div>
             <h2 className="text-3xl font-bold text-white">{city} Exterior Cleaning FAQs</h2>

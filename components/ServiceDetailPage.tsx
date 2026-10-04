@@ -3,6 +3,7 @@ import FAQAccordion from './FAQAccordion';
 import GalleryGrid from './GalleryGrid';
 import CTASection from './CTASection';
 import ServiceAnimation from './ServiceAnimation';
+import Link from 'next/link';
 
 const commonWhy = [
   'Veteran-owned and operated',
@@ -48,6 +49,7 @@ export default function ServiceDetailPage({
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-brand-200">Veteran-owned service protocol</p>
             <h1 className="mt-3 text-4xl font-bold text-white sm:text-5xl">{title} in Houston & Surrounding Areas</h1>
             <p className="mt-4 max-w-3xl text-lg text-slate-300">{intro}</p>
+            <Link href="/home-care-plan" className="mt-5 inline-block rounded-lg bg-brand-500 px-5 py-3 font-semibold text-slate-950">Build Your Home Care Plan</Link>
           </div>
           {animation && <ServiceAnimation type={animation} />}
         </div>

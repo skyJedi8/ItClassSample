@@ -56,8 +56,8 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
       </noscript>
       <p className="px-3 pb-2 pt-3 text-center text-xs text-slate-600">
         Your request is securely recorded in Jobber. For urgent scheduling, call or text{' '}
-        <a className="font-semibold underline" href="tel:+13463067622">
-          (346) 306-7622
+        <a className="font-semibold underline" href="tel:+13466236767">
+          (346) 623-6767
         </a>
         .
       </p>

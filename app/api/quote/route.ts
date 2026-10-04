@@ -23,12 +23,12 @@ export async function POST(req: NextRequest) {
     if (now - entry.ts > 60_000) { entry.count = 0; entry.ts = now; }
     entry.count += 1;
     bucket.set(ip, entry);
-    if (entry.count > 8) return NextResponse.json({ error: 'Too many requests. Please call or text 346-306-7622.' }, { status: 429 });
+    if (entry.count > 8) return NextResponse.json({ error: 'Too many requests. Please call or text 346-623-6767.' }, { status: 429 });
 
     const data = await req.json();
     if (data.company) return NextResponse.json({ ok: true });
     if (!isValidQuote(data)) return NextResponse.json({ error: 'Please complete the required quote details.' }, { status: 400 });
-    if (!(await verifyRecaptcha(data.recaptchaToken))) return NextResponse.json({ error: 'Verification failed. Please call or text 346-306-7622.' }, { status: 400 });
+    if (!(await verifyRecaptcha(data.recaptchaToken))) return NextResponse.json({ error: 'Verification failed. Please call or text 346-623-6767.' }, { status: 400 });
 
     const text = Object.entries(data)
       .filter(([key]) => key !== 'company' && key !== 'recaptchaToken')
@@ -65,13 +65,13 @@ export async function POST(req: NextRequest) {
 
     if (!delivered) {
       return NextResponse.json(
-        { error: 'Online delivery is not configured yet. Please call or text 346-306-7622.' },
+        { error: 'Online delivery is not configured yet. Please call or text 346-623-6767.' },
         { status: 503 }
       );
     }
 
     return NextResponse.json({ ok: true });
   } catch {
-    return NextResponse.json({ error: 'Delivery failed. Please call or text 346-306-7622.' }, { status: 500 });
+    return NextResponse.json({ error: 'Delivery failed. Please call or text 346-623-6767.' }, { status: 500 });
   }
 }

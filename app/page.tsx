@@ -27,6 +27,12 @@ export default function Home() {
       <TrustBar />
 
       <Section>
+        <h2 className="text-3xl font-semibold text-white">Your property. Your maintenance plan.</h2>
+        <p className="mt-3 max-w-3xl text-slate-300">Choose gutters, driveway and walkways, exterior washing, selected walls, windows, solar panels and drainage. Set each service’s frequency and request one complete quote.</p>
+        <Link href="/home-care-plan" className="mt-5 inline-block rounded-lg bg-brand-500 px-5 py-3 font-semibold text-slate-950">Build Your Home Care Plan</Link>
+      </Section>
+
+      <Section>
         <div className="grid items-center gap-8 lg:grid-cols-[1fr_.9fr]">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-brand-200">Mission-driven property care</p>

@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: 'Operation Clean Freedom',
   tagline: 'Service You Can Trust, Quality You Can See.',
-  phoneDisplay: '346-306-7622',
-  phoneLink: 'tel:3463067622',
-  textLink: 'sms:3463067622',
+  phoneDisplay: '346-623-6767',
+  phoneLink: 'tel:+13466236767',
+  textLink: 'sms:+13466236767',
   email: 'info@operationcleanfreedom.com',
   hours: '8:00 AM – 5:00 PM (After-hours calls accepted for urgent scheduling/quoting)',
   thumbtackUrl:

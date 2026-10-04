@@ -5,7 +5,7 @@ import BrandLogo from './BrandLogo';
 import Link from 'next/link';
 import { serviceAreas } from '@/lib/areas';
 
-const nav = [['Home', '/'], ['Services', '/services'], ['Commercial/HOA', '/commercial-hoa'], ['About', '/about'], ['Gallery', '/gallery'], ['Reviews', '/reviews'], ['Contact', '/contact']];
+const nav = [['Home', '/'], ['Build Your Home Care Plan', '/home-care-plan'], ['Services', '/services'], ['Commercial/HOA', '/commercial-hoa'], ['About', '/about'], ['Gallery', '/gallery'], ['Reviews', '/reviews'], ['Contact', '/contact']];
 
 export default function Header() {
   return (

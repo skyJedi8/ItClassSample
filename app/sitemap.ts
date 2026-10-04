@@ -5,6 +5,7 @@ import { serviceAreas } from '@/lib/areas';
 const staticPaths = [
   '',
   '/services',
+  '/home-care-plan',
   '/services/gutter-cleaning',
   '/services/window-cleaning',
   '/services/pressure-washing',

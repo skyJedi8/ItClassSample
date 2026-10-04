@@ -78,3 +78,11 @@ full-plan customer send and native responder log verification; supported
 payment sandbox/activation API; finalized early termination settlement; verified
 accounting mapping for prepaid service; actual scheduled website checks with
 permissions to repair. Saved prompts and deployed pages do not prove these.
+
+## Production evidence, October 4, 2026
+
+Initial production deployment `dpl_EdBDkcZXBbp8LdXyLGrgR9P3EQBH`, commit `c24fc98a875b58154cde5ef60e9d17a8233cfe11`, reached READY and both production aliases. The live status endpoint returned HTTP 200 and all seven categories, version 2026-10-04.1, quote-review mode and disabled checkout/activation. Live POST tests passed: full seven-service review, exact quarterly arithmetic (window-only $235.20/year, four $58.80 installments, six other prices pending), repeat response equality, supplied-price tamper ignored, and duplicate-service rejection HTTP 400. Browser review, reduced-motion selection, all seven edit controls, and save/reload restoration passed. No Quo send or native Jobber form submission was made by the website test.
+
+Existing internal test audit task 2351357004 received a clearly labeled full seven-service plan audit via supported taskEdit, with assignments email disabled. This proves internal API write/readback, not automated public website-to-Jobber submission. Existing native responder/enrollment instructions were updated with the new full catalog and payment/contract rules, preserving all send controls; prior configurations are in Responder Control Archive rows 25–27. Existing hourly checker was extended, and an immediate actual run requested; execution completion must be independently verified.
+
+Open acceptance checks: actual mobile-device browser, native form request creation and subsequent inbound notification, new complete-plan Quo ingestion/logging, provider test-mode payment, independent signature proof, actual first-service completion delaying activation, immutable accepted-price persistence at annual renewal, recurring-payment activation and QuickBooks obligation reconciliation. Saved task configuration alone does not satisfy these.

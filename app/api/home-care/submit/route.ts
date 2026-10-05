@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { normalizePlan } from '@/lib/home-care';
 import { intakeSignature } from '@/lib/home-care-intake-auth';
+import { attributionFromRequest, Attribution } from '@/lib/home-care-tracking';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 const ORIGIN = 'https://www.operationcleanfreedom.com';
@@ -23,7 +24,8 @@ export async function POST(request: NextRequest) {
   // Drop client-supplied internal-test, rate, task-ID and price fields.
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
   const rateKey = createHmac('sha256', secret).update('homecare-rate:' + ip).digest('hex');
-  const payload: { plan: typeof raw.plan; intakeToken: string; expectedRevision: number; rateKey: string; internalTest?: boolean } = { plan: raw.plan, intakeToken: raw.intakeToken, expectedRevision: raw.expectedRevision, rateKey };
+  const payload: { plan: typeof raw.plan; intakeToken: string; expectedRevision: number; rateKey: string; internalTest?: boolean; attribution?: Attribution } = { plan: raw.plan, intakeToken: raw.intakeToken, expectedRevision: raw.expectedRevision, rateKey };
+  const attribution=attributionFromRequest(request,secret);if(attribution)payload.attribution=attribution;
   // Privileged internal QA must prove possession of the server key. Its writes
   // reuse the existing internal audit task; public clients cannot select it.
   const testSignature = request.headers.get('x-ocf-internal-test-signature');

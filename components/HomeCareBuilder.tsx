@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { trackHomeCareStart } from '@/components/HomeCareTracking';
 import { HOME_CARE_VERSION, SERVICES, Plan, ServiceId, Selection, quotePlan, planSummary, formatMoney, REQUEST_URL, HOME_SIZE_BANDS, BASE_PRICES, TERMS_VERSION, PRICE_DISCLAIMER, chicagoToday, signupReady } from '@/lib/home-care';
 
 const DRAFT_KEY = 'ocf-home-care-draft-v1';
@@ -35,7 +36,7 @@ export default function HomeCareBuilder() {
   const quote = plan.id ? quotePlan(plan) : null;
   const service = SERVICES.find(x => x.id === active)!;
   const selected = plan.selections.find(x => x.id === active);
-  function change(next: Plan) { if (saving) return; setPlan(next); setShowRequest(false); setServerVerified(false); setCopied(false); setSubmitted(false); }
+  function change(next: Plan) { if (saving) return; trackHomeCareStart(); setPlan(next); setShowRequest(false); setServerVerified(false); setCopied(false); setSubmitted(false); }
   function choose(id: ServiceId, add: boolean) {
     setLeaving(null);
     const exists = plan.selections.some(x => x.id === id);
@@ -102,6 +103,7 @@ export default function HomeCareBuilder() {
   const currentLine = quote?.lines.find(l => l.id === active);
   return <div className={`hc-wrap ${reduceMotion ? 'hc-reduced' : ''}`}>
     <div className="hc-heading"><p className="hc-eyebrow">OCF Home Exterior Care Plan</p><h1>Your home. Your plan.</h1><p>Start with your home size, choose your services and see your estimate update. Choose a first-service date when you sign up.</p><div className="hc-tools"><button type="button" onClick={saveDraft} disabled={!ready}>Save draft on this device</button><label><input type="checkbox" checked={reduceMotion} onChange={e => { setReduceMotion(e.target.checked); if (e.target.checked && leaving) choose(leaving, true); }} /> Reduce motion / skip animation</label></div></div>
+    <section className="hc-property-start" aria-label="Single-service plan example"><div><p className="hc-eyebrow">Start with one service</p><p>Choose just what your home needs. Your estimate follows your service and visit frequency.</p><details><summary>A $20/month maintenance example</summary><p>1–5 standard accessible windows, including interior, exterior and screens: four future cleanings per year at $60 each, paid in 12 monthly payments of $20. The initial cleaning is a separate $60 estimate, paid upfront. Estimates are subject to verification; applicable tax is additional. Monthly payments do not mean monthly visits. Future billing begins about 30 days after the initial cleaning is completed, with finalized scope and your authorization.</p></details></div></section>
     <p className="hc-status" role="status" aria-live="polite">{notice}</p>
     <section className="hc-property-start" aria-labelledby="hc-property-title"><div><p className="hc-eyebrow">1 · Your home</p><h2 id="hc-property-title">Choose your home size first</h2><p>These details set your gutter and house-washing base estimate.</p></div><div className="hc-fields"><label>Home size<select className={fieldClass} value={plan.property.homeSize || ''} onChange={e => property('homeSize', e.target.value)}><option value="">Choose home size</option>{HOME_SIZE_BANDS.map(b => <option key={b.value} value={b.value}>{b.label}</option>)}</select></label><label>Number of stories<select className={fieldClass} value={plan.property.stories || ''} onChange={e => property('stories',e.target.value)}><option value="">Choose stories</option><option value="One">One story</option><option value="Two">Two stories</option><option value="Three or more">Three or more / needs verification</option></select></label></div><p className="hc-note">Home size provides a base estimate. Actual exterior washing area, access and scope are verified. It is not used as your driveway or walkway area.</p></section>
     <div className="hc-mobile-total" aria-live="polite"><span>Initial estimate <strong>{formatMoney(initialKnown)}</strong></span><span>Future {plan.payment === 'monthly' ? 'monthly' : plan.payment === 'quarterly' ? 'quarterly' : 'annual'} <strong>{amountLabel || '$0.00'}</strong></span>{!!quote?.pending && <small>+ {quote.pending} separately priced / incomplete scope</small>}</div>

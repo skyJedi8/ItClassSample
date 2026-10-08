@@ -1,12 +1,12 @@
 'use client';
 import {useEffect,useState} from 'react';
-type Identity={clientId:string;phone:string;phoneId:string;propertyId:string};
+type Identity={clientId:string;phone:string;phoneId:string;propertyId?:string};
 type Decision=Identity&{scope?:string;services?:string[];status:'accepted'|'declined'|'unknown';note:string;recordedAt:string;version:number;permission:string};
 type Props={identity:Identity;request:(body:Record<string,unknown>)=>Promise<any>;disabled:boolean;onSaved:(permission:string)=>void};
 export default function CustomerPermission({identity,request,disabled,onSaved}:Props){
  const [saved,setSaved]=useState<Decision|null>(null),[status,setStatus]=useState('unknown'),[note,setNote]=useState(''),[busy,setBusy]=useState(true),[error,setError]=useState(''),[dirty,setDirty]=useState(false);
  const {clientId,phone,phoneId,propertyId}=identity;
- useEffect(()=>{let active=true;setBusy(true);setError('');onSaved('');request({operation:'permission_read',phone}).then(result=>{if(!active)return;const d:Decision|null=result.decision;setSaved(d);setStatus(d?.status||'unknown');setNote(d?.note||'');setDirty(false);onSaved(d?.status==='accepted'&&(d.scope!=='services'||!!d.services?.includes('Christmas lighting'))&&d.clientId===clientId&&d.phoneId===phoneId&&d.propertyId===propertyId?d.permission:'');}).catch(e=>{if(active)setError(e instanceof Error?e.message:'Could not load saved choice.');}).finally(()=>{if(active)setBusy(false);});return()=>{active=false;}; // Requests are tied to the exact customer identity, not parent render callbacks.
+ useEffect(()=>{let active=true;setBusy(true);setError('');onSaved('');request({operation:'permission_read',phone}).then(result=>{if(!active)return;const d:Decision|null=result.decision;setSaved(d);setStatus(d?.status||'unknown');setNote(d?.note||'');setDirty(false);onSaved(d?.status==='accepted'&&(d.scope!=='services'||!!d.services?.includes('Christmas lighting'))&&d.clientId===clientId&&d.phoneId===phoneId?d.permission:'');}).catch(e=>{if(active)setError(e instanceof Error?e.message:'Could not load saved choice.');}).finally(()=>{if(active)setBusy(false);});return()=>{active=false;}; // Requests are tied to the exact customer identity, not parent render callbacks.
  // eslint-disable-next-line react-hooks/exhaustive-deps
  },[clientId,phone,phoneId,propertyId]);
  async function save(){setBusy(true);setError('');onSaved('');try{const result=await request({operation:'permission_save',...identity,status,note,version:saved?.version||0});setSaved(result.decision);setDirty(false);onSaved(result.decision.status==='accepted'?result.decision.permission:'');}catch(e){setError(e instanceof Error?e.message:'Could not save.');}finally{setBusy(false);}}

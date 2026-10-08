@@ -7,7 +7,7 @@ import { allowedStaffOrigin, isStaff } from '@/lib/staff/owner';
 async function login(form: FormData) {
   'use server';
   if (!allowedStaffOrigin(headers().get('origin')) || !staffAuthConfigured()) redirect('/staff/login?error=unavailable');
-  try { await signIn('credentials', { username: form.get('username'), password: form.get('password'), redirectTo: '/staff' }); }
+  try { await signIn('credentials', { username: form.get('username'), password: form.get('password'), rememberBrowser: form.get('rememberBrowser') === 'on' ? 'true' : 'false', redirectTo: '/staff' }); }
   catch (error) { if (error instanceof AuthError) redirect('/staff/login?error=credentials'); throw error; }
 }
 export default async function StaffLogin({ searchParams }: { searchParams: { error?: string; setup?: string } }) {
@@ -25,6 +25,7 @@ export default async function StaffLogin({ searchParams }: { searchParams: { err
         <form action={login}>
           <label htmlFor="username">Email address</label><input id="username" name="username" type="email" autoComplete="username" defaultValue="eric.evans@operationcleanfreedom.com" required maxLength={254} />
           <label htmlFor="password">Your staff password</label><input id="password" name="password" type="password" autoComplete="current-password" required minLength={12} maxLength={128} />
+          <label htmlFor="remember-browser" style={{ display: 'flex', alignItems: 'center', gap: 10 }}><input id="remember-browser" name="rememberBrowser" type="checkbox" style={{ width: 18, height: 18, margin: 0 }} />Remember this browser for 30 days</label><p className="staff-small">Use on your own device. Leave unchecked on shared devices for a one-hour session. Signing out or changing your password ends access.</p>
           <button className="staff-primary" type="submit">Open staff dashboard</button>
         </form><p className="staff-small">Need a reset? Eric can create a private reset link in Access management. If the owner is locked out, use this OCF implementation chat for recovery. Staff accounts require an invitation from Eric.</p>
       </>}

@@ -1,5 +1,7 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+import { encode } from 'next-auth/jwt';
+import { REMEMBER_SESSION_SECONDS, newSessionDeadline, sessionDeadline } from './session-policy';
 import { createHmac } from 'node:crypto';
 import { accountsConfigured, authenticate, validAccount } from './accounts';
 
@@ -14,25 +16,32 @@ export const { auth, handlers, signIn, signOut } = NextAuth(() => ({
     .update('ocf-staff-session-v1').digest('hex') : undefined,
   basePath: '/api/staff/auth',
   trustHost: true,
-  session: { strategy: 'jwt', maxAge: 3600 },
+  session: { strategy: 'jwt', maxAge: REMEMBER_SESSION_SECONDS },
+  jwt: { async encode(params) {
+    const remaining = Math.max(0, Math.floor((sessionDeadline(params.token || {}) - Date.now()) / 1000));
+    return encode({ ...params, maxAge: Math.min(remaining, REMEMBER_SESSION_SECONDS) });
+  } },
   pages: { signIn: '/staff/login', error: '/staff/login' },
   providers: [Credentials({
-    credentials: { username: { label: 'Email' }, password: { label: 'Password', type: 'password' } },
+    credentials: { username: { label: 'Email' }, password: { label: 'Password', type: 'password' }, rememberBrowser: { label: 'Remember this browser', type: 'checkbox' } },
     async authorize(credentials) {
       if (!staffAuthConfigured()) return null;
-      try { return await authenticate(credentials.username, credentials.password); } catch { return null; }
+      try { const account = await authenticate(credentials.username, credentials.password); return account ? { ...account, rememberBrowser: credentials.rememberBrowser === 'true' } : null; } catch { return null; }
     }
   })],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) { token.sub = user.id; token.email = user.email; token.name = user.name; token.version = user.version; }
+      if (user) { token.sub = user.id; token.email = user.email; token.name = user.name; token.version = user.version; token.staffExpiresAt = newSessionDeadline(user.rememberBrowser); }
+      const deadline = sessionDeadline(token);
+      token.staffExpiresAt = deadline;
+      if (deadline <= Date.now()) return null;
       return token;
     },
     async session({ session, token }) {
       try {
         const account = typeof token.sub === 'string' && typeof token.version === 'number' ? await validAccount(token.sub, token.version) : null;
-        if (!account) return { ...session, user: undefined };
-        return { ...session, user: { id: account.id, name: account.name, email: account.email, role: account.role, version: account.version } };
+        if (!account || sessionDeadline(token) <= Date.now()) return { ...session, user: undefined };
+        return { ...session, expires: new Date(sessionDeadline(token)).toISOString(), user: { id: account.id, name: account.name, email: account.email, role: account.role, version: account.version } };
       } catch { return { ...session, user: undefined }; }
     },
     async redirect({ url, baseUrl }) {

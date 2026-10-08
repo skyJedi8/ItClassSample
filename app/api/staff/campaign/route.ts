@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
   try {
     const raw = await request.text(); if (raw.length > 12000) return reply({ error: 'Request too large.' }, 413);
     const body = JSON.parse(raw);
-    if (!['connect', 'connect_tracker', 'offer', 'clients', 'client', 'approve', 'remove', 'prepare', 'start', 'pause', 'advance', 'reconcile'].includes(body.operation)) return reply({ error: 'Unsupported operation.' }, 400);
+    if (!['connect', 'connect_tracker', 'offer', 'quick_review', 'clients', 'client', 'approve', 'remove', 'prepare', 'start', 'pause', 'advance', 'reconcile'].includes(body.operation)) return reply({ error: 'Unsupported operation.' }, 400);
     return reply(await campaignRequest(body));
   } catch (error) {
     // Never log API keys, message contents, recipient details, or request bodies.

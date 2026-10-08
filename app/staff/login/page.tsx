@@ -19,12 +19,13 @@ export default async function StaffLogin({ searchParams }: { searchParams: { err
       <span className="staff-eyebrow">APPROVED STAFF ACCESS</span><h1>Your OCF workspace.</h1>
       <p>Campaign preparation, customer links and live Home Care tracking in one private place.</p>
       {!configured ? <div className="staff-alert" role="status">Staff login is temporarily unavailable. Customer information remains protected.</div> : <>
-        {searchParams.error && <div role="alert" className="staff-alert">Sign-in could not be completed. Check your email and password. After repeated attempts, wait 15 minutes.</div>}
+        {searchParams.error && <div role="alert" className="staff-alert">Sign-in could not be completed. If you have not created your password yet, choose Create password below. Otherwise check your email and password. After repeated attempts, wait 15 minutes.</div>}
+        <div className="staff-first-time"><h2>First time here?</h2><p>Create your password using your private owner setup or staff invitation link.</p><a className="staff-secondary" href="/staff/setup">Create password / New staff setup</a></div>
         <form action={login}>
           <label htmlFor="username">Email address</label><input id="username" name="username" type="email" autoComplete="username" defaultValue="eric.evans@operationcleanfreedom.com" required maxLength={254} />
           <label htmlFor="password">Your staff password</label><input id="password" name="password" type="password" autoComplete="current-password" required minLength={12} maxLength={128} />
           <button className="staff-primary" type="submit">Open staff dashboard</button>
-        </form><p className="staff-small">First time? Open your private setup or invitation link to create a password. Need a reset? Eric can create a private reset link in Access management. If the owner is locked out, use this OCF implementation chat for a verified recovery. There is no public registration.</p>
+        </form><p className="staff-small">Need a reset? Eric can create a private reset link in Access management. If the owner is locked out, use this OCF implementation chat for recovery. Staff accounts require an invitation from Eric.</p>
       </>}
     </section><p className="staff-login-note">Private access · No customer messages are sent when you sign in.</p>
   </main>;

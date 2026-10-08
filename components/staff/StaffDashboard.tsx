@@ -40,6 +40,7 @@ export default function StaffDashboard({ initial, viewer = { name: 'Eric Evans',
     <aside className="staff-sidebar">
       <a href="/staff" className="staff-sidebar-brand"><Image src="/icon.svg" alt="" width={36} height={36} /><span>OCF<span className="staff-brand-sub">STAFF WORKSPACE</span></span></a>
       <nav aria-label="Staff dashboard">
+        {viewer.role === 'owner' && <a className="staff-secondary" href="/staff/campaign">Christmas lights campaign →</a>}
         {([['overview', 'Campaign overview', '01'], ['households', 'Existing households', '02'], ['prepare', 'Message preparation', '03']] as const).map(([key, name, number]) => <button key={key} aria-current={tab === key ? 'page' : undefined} onClick={() => setTab(key)}><span>{number}</span>{name}</button>)}
       </nav>
       <div className="staff-sidebar-links"><span className="staff-eyebrow">EXISTING WORKSPACES</span><a href={TRACKER_URL} target="_blank" rel="noreferrer">Outreach tracker ↗</a><a href={INBOUND_URL} target="_blank" rel="noreferrer">Incoming customer replies ↗</a><a href="https://chatgpt.com/space/page_0e213e73e6b0819185cf85c41c0dd09d" target="_blank" rel="noreferrer">OCF Operations Status ↗</a></div>
@@ -47,9 +48,9 @@ export default function StaffDashboard({ initial, viewer = { name: 'Eric Evans',
       <div className="staff-owner"><span className="staff-avatar">{viewer.name.slice(0,2).toUpperCase()}</span><div><strong>{viewer.name}</strong><span>{viewer.role === 'owner' ? 'Owner access' : 'Staff access'}</span></div></div>
     </aside>
     <main className="staff-main">
-      <header className="staff-topbar"><span>HOME CARE PLAN / OCTOBER CAMPAIGN</span><span className="staff-private"><span aria-hidden="true">●</span> Private staff area</span></header>
+      <header className="staff-topbar"><span>HOME CARE PLAN / PROMOTIONS PAUSED</span><span className="staff-private"><span aria-hidden="true">●</span> Private staff area</span></header>
       <div className="staff-heading"><div><span className="staff-eyebrow">OPERATION CLEAN FREEDOM</span><h1>{tab === 'overview' ? 'Keep the next step clear.' : tab === 'households' ? 'Your existing households.' : 'Prepare the right message.'}</h1><p>{tab === 'overview' ? 'Live website activity. Separate evidence for every step of enrollment.' : tab === 'households' ? 'Only the existing registered pilot list. Source records and customer links stay together.' : 'Review the saved draft, exact customer link and final text length before any sending handoff.'}</p></div><button className="staff-secondary" onClick={refresh} disabled={busy}>{busy ? 'Refreshing…' : 'Refresh live data'} <span aria-hidden="true">↻</span></button></div>
-      <div className="staff-status-row"><span>Last checked: {data ? stamp(data.checkedAt) : 'No live snapshot yet'}</span><span className={window.open ? 'staff-window-open' : ''}>{window.reason}</span></div>
+      <div className="staff-status-row"><span>Last checked: {data ? stamp(data.checkedAt) : 'No live snapshot yet'}</span><span>Promotions paused by Eric. Existing inbound service continues.</span></div>
       {error && <div role="alert" className="staff-alert">{error}</div>}
       {!data && <section className="staff-panel staff-empty"><h2>Live tracking is unavailable.</h2><p>Refresh to try again, or open the existing tracker. Customer sending remains with its current owner.</p><a className="staff-secondary" href={TRACKER_URL} target="_blank" rel="noreferrer">Open existing tracker ↗</a></section>}
       {data && tab === 'overview' && <>

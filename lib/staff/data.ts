@@ -24,6 +24,6 @@ export async function loadStaffSnapshot(): Promise<StaffSnapshot> {
   return { ...summary, checkedAt: new Date().toISOString(),
     health: { tracking: health[0].status === 'fulfilled' && health[0].value === true, intake: health[1].status === 'fulfilled' && health[1].value === true, pricing: health[2].status === 'fulfilled' && health[2].value === true },
     communications: { sent: null, replied: null, signed: null, paid: null, active: null },
-    sender: { enabled: false, owner: 'Existing OCF Maintenance Enrollment task', reason: 'Shared Quo history, quota, preparation locks and Jobber send logging must be connected and verified before this dashboard takes over sending.' }
+    sender: { enabled: false, owner: 'Home Care promotions paused by Eric', reason: 'Home Care promotions are paused. Christmas lights campaign controls are available in the staff campaign page. Existing inbound ownership is unchanged.' }
   };
 }

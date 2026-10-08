@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { CAMPAIGN, campaignWindow, FOOTER, INBOUND_URL, preparationDraft, StaffRecipient, StaffSnapshot, TRACKER_URL } from '@/lib/staff/campaign';
 
 const stamp = (value: string | null) => value ? new Date(value).toLocaleString('en-US', { timeZone: 'America/Chicago', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) + ' CT' : 'None recorded';
-export default function StaffDashboard({ initial }: { initial: StaffSnapshot | null }) {
+export default function StaffDashboard({ initial, viewer = { name: 'Eric Evans', role: 'owner' } }: { initial: StaffSnapshot | null; viewer?: { name: string; role: 'owner' | 'staff' } }) {
   const [data, setData] = useState(initial);
   const [tab, setTab] = useState<'overview' | 'households' | 'prepare'>('overview');
   const [filter, setFilter] = useState('');
@@ -43,7 +43,8 @@ export default function StaffDashboard({ initial }: { initial: StaffSnapshot | n
         {([['overview', 'Campaign overview', '01'], ['households', 'Existing households', '02'], ['prepare', 'Message preparation', '03']] as const).map(([key, name, number]) => <button key={key} aria-current={tab === key ? 'page' : undefined} onClick={() => setTab(key)}><span>{number}</span>{name}</button>)}
       </nav>
       <div className="staff-sidebar-links"><span className="staff-eyebrow">EXISTING WORKSPACES</span><a href={TRACKER_URL} target="_blank" rel="noreferrer">Outreach tracker ↗</a><a href={INBOUND_URL} target="_blank" rel="noreferrer">Incoming customer replies ↗</a><a href="https://chatgpt.com/space/page_0e213e73e6b0819185cf85c41c0dd09d" target="_blank" rel="noreferrer">OCF Operations Status ↗</a></div>
-      <div className="staff-owner"><span className="staff-avatar">EE</span><div><strong>Eric Evans</strong><span>Owner access</span></div><form action="/api/staff/auth/signout" method="get"><button aria-label="Sign out">↗</button></form></div>
+      <div className="staff-account-links"><a href="/staff/account">My password</a>{viewer.role === 'owner' && <a href="/staff/users">Access management</a>}<a href="/api/staff/auth/signout">Sign out</a></div>
+      <div className="staff-owner"><span className="staff-avatar">{viewer.name.slice(0,2).toUpperCase()}</span><div><strong>{viewer.name}</strong><span>{viewer.role === 'owner' ? 'Owner access' : 'Staff access'}</span></div></div>
     </aside>
     <main className="staff-main">
       <header className="staff-topbar"><span>HOME CARE PLAN / OCTOBER CAMPAIGN</span><span className="staff-private"><span aria-hidden="true">●</span> Private staff area</span></header>

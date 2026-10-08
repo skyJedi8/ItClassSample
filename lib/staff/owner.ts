@@ -2,9 +2,10 @@ export const OWNER_EMAIL = 'eric.evans@operationcleanfreedom.com';
 export const OWNER_ID = 'ocf-owner';
 export const BACKEND_ORIGIN = 'https://ocf-jobber-service.vercel.app';
 
-export function isOwner(session: { user?: { email?: string | null } } | null) {
-  return session?.user?.email === OWNER_EMAIL;
+export function isOwner(session: { user?: { email?: string | null; role?: string; id?: string } } | null) {
+  return session?.user?.email === OWNER_EMAIL && session.user.role === 'owner' && session.user.id === OWNER_ID;
 }
+export function isStaff(session: { user?: { role?: string; id?: string } } | null) { return Boolean(session?.user?.id && ['owner', 'staff'].includes(session.user.role || '')); }
 
 // Password verification stays with the existing OCF service. No password,
 // Basic header or Jobber token is stored in the website session.

@@ -1,0 +1,43 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const ts = require('typescript');
+const fs = require('node:fs');
+const { BlobPreconditionFailedError } = require('@vercel/blob');
+require.extensions['.ts'] = (m, f) => m._compile(ts.transpileModule(fs.readFileSync(f, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText, f);
+const a = require('../lib/staff/accounts.ts');
+function memory() { let state = { schema: 1, accounts: [], grants: [], limits: {}, audit: [] }, rev = 1; return { async read() { return { state: structuredClone(state), etag: String(rev) }; }, async write(s, etag) { if (etag !== String(rev)) throw new BlobPreconditionFailedError(); state = structuredClone(s); rev++; } }; }
+test('owner setup, invites, reset replay protection, session revocation and role checks', async () => {
+  const store = memory(), bootstrap = 'a'.repeat(64), ownerPass = 'owner test phrase only', staffPass = 'staff test phrase only';
+  process.env.STAFF_BOOTSTRAP_TOKEN_HASH = a.digest(bootstrap); process.env.STAFF_BOOTSTRAP_EXPIRES = String(Date.now() + 60000);
+  await assert.rejects(a.redeemGrant(bootstrap, 'short', store), /12/);
+  await a.redeemGrant(bootstrap, ownerPass, store);
+  await assert.rejects(a.redeemGrant(bootstrap, ownerPass, store), /invalid|expired/);
+  const owner = await a.authenticate('eric', ownerPass, store); assert.equal(owner.role, 'owner');
+  assert.equal(await a.authenticate('eric', 'wrong password', store), null);
+  const invite = await a.manageAccount(owner.id, owner.version, 'invite', { email: 'staff@example.com', name: 'Approved staff' }, store);
+  assert.equal((await a.inspectGrant(invite.token, store)).email, 'staff@example.com');
+  const raced = await Promise.allSettled([a.redeemGrant(invite.token, staffPass, store), a.redeemGrant(invite.token, staffPass, store)]);
+  assert.equal(raced.filter(x => x.status === 'fulfilled').length, 1);
+  const staff = await a.authenticate('staff@example.com', staffPass, store); assert.equal(staff.role, 'staff');
+  await assert.rejects(a.manageAccount(staff.id, staff.version, 'invite', { email: 'bad@example.com', name: 'Bad' }, store), /Owner/);
+  const reset = await a.manageAccount(owner.id, owner.version, 'reset', { id: staff.id }, store);
+  await a.redeemGrant(reset.token, 'changed staff phrase', store);
+  assert.equal(await a.validAccount(staff.id, staff.version, store), null);
+  assert.equal(await a.authenticate('staff@example.com', staffPass, store), null);
+  const updated = await a.authenticate('staff@example.com', 'changed staff phrase', store); assert.equal(updated.version, 2);
+  await a.manageAccount(owner.id, owner.version, 'disable', { id: staff.id }, store);
+  assert.equal(await a.validAccount(staff.id, updated.version, store), null);
+  assert.equal(await a.authenticate('staff@example.com', 'changed staff phrase', store), null);
+  await assert.rejects(a.manageAccount(owner.id, owner.version, 'disable', { id: owner.id }, store), /cannot/);
+  await a.changePassword(owner.id, owner.version, ownerPass, 'new owner test phrase', store);
+  assert.equal(await a.validAccount(owner.id, owner.version, store), null);
+  const exported = await a.listAccounts(store); assert.ok(!JSON.stringify(exported).includes('passwordHash')); assert.ok(!JSON.stringify(exported).includes(invite.token));
+  const stored = JSON.stringify((await store.read()).state); assert.ok(!stored.includes(ownerPass)); assert.ok(!stored.includes(staffPass)); assert.ok(!stored.includes(bootstrap));
+});
+test('durable throttling and optimistic concurrency protect account state', async () => {
+  const store = memory();
+  await Promise.all(Array.from({ length: 4 }, (_, i) => a.transaction(s => { s.audit.push({ at: '', actor: '', action: 'race', subject: String(i) }); }, store)));
+  assert.equal((await store.read()).state.audit.length, 4);
+  for (let i = 0; i < 8; i++) assert.equal(await a.authenticate('unknown@example.com', 'test phrase only', store), null);
+  await assert.rejects(a.authenticate('unknown@example.com', 'test phrase only', store), /Too many/);
+});

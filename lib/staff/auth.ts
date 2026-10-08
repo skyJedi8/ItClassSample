@@ -1,10 +1,10 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { createHmac } from 'node:crypto';
-import { OWNER_EMAIL, OWNER_ID, verifyOwnerLogin } from './owner';
+import { accountsConfigured, authenticate, validAccount } from './accounts';
 
 export function staffAuthConfigured() {
-  return (process.env.HOME_CARE_INTAKE_SHARED_KEY?.length || 0) >= 64;
+  return (process.env.HOME_CARE_INTAKE_SHARED_KEY?.length || 0) >= 64 && accountsConfigured();
 }
 
 export const { auth, handlers, signIn, signOut } = NextAuth(() => ({
@@ -17,20 +17,23 @@ export const { auth, handlers, signIn, signOut } = NextAuth(() => ({
   session: { strategy: 'jwt', maxAge: 3600 },
   pages: { signIn: '/staff/login', error: '/staff/login' },
   providers: [Credentials({
-    credentials: { username: { label: 'Username' }, password: { label: 'OCF service password', type: 'password' } },
+    credentials: { username: { label: 'Email' }, password: { label: 'Password', type: 'password' } },
     async authorize(credentials) {
-      if (!staffAuthConfigured() || !await verifyOwnerLogin(credentials.username, credentials.password)) return null;
-      return { id: OWNER_ID, email: OWNER_EMAIL, name: 'Eric Evans' };
+      if (!staffAuthConfigured()) return null;
+      try { return await authenticate(credentials.username, credentials.password); } catch { return null; }
     }
   })],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) { token.sub = user.id; token.email = user.email; token.name = user.name; }
+      if (user) { token.sub = user.id; token.email = user.email; token.name = user.name; token.version = user.version; }
       return token;
     },
     async session({ session, token }) {
-      if (token.sub !== OWNER_ID || token.email !== OWNER_EMAIL) return { ...session, user: undefined };
-      return { ...session, user: { name: 'Eric Evans', email: OWNER_EMAIL } };
+      try {
+        const account = typeof token.sub === 'string' && typeof token.version === 'number' ? await validAccount(token.sub, token.version) : null;
+        if (!account) return { ...session, user: undefined };
+        return { ...session, user: { id: account.id, name: account.name, email: account.email, role: account.role, version: account.version } };
+      } catch { return { ...session, user: undefined }; }
     },
     async redirect({ url, baseUrl }) {
       if (url === '/staff' || url === '/staff/login') return baseUrl + url;

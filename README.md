@@ -83,3 +83,15 @@ streamlit run app.py
 
 - App is local-first and stores data in `data/ocf_ops_hub.db`.
 - App does **not** send SMS automatically. It generates copy-ready message queues only.
+
+## Private staff accounts
+
+The footer links to `/staff`. Approved users sign in with their email and their own password; the legacy Jobber service password is not accepted. Account password hashes, single-use invitation/reset grants, shared attempt counters and an audit history live in the dedicated private Blob store. All reads bypass the storage cache; writes use ETag compare-and-set and fail closed on unresolved conflicts. No public registration is available.
+
+Initial owner setup requires a cryptographically random 32-byte capability provided privately to Eric. Only its SHA-256 digest and a 24-hour expiry belong in production configuration. The raw capability stays in the fragment of `/staff/setup#…`, is submitted in a same-origin POST, and is removed from the current URL after successful setup. It cannot be reused after the owner exists. Passwords are 12–128 characters and use salted scrypt (N=131072, r=8, p=1). Auth.js manages signed session cookies and CSRF. Every session read checks the live account version and enabled state.
+
+Eric manages invitations, one-hour reset links, cancelled invitations and staff removal at `/staff/users`. Invitations expire after 24 hours. Links are copied and privately handed to their intended person; no email-delivery capability is claimed. Users can change their own password at `/staff/account`. Password changes/resets and access removal invalidate existing sessions. Staff can view the workspace and prepare drafts; only the owner can manage accounts. The campaign sender remains disabled in this interface.
+
+Owner lockout recovery is an authenticated operational action: verify Eric in the existing OCF implementation context, preserve the current private account document, then provision a single-use, one-hour reset grant for the exact owner account using a supported private-store operation with an ETag guard. Never expose the account-store token, manually replace a password, reopen bootstrap after the owner exists, or create public recovery access. Test recovery against isolated storage before release. No SMTP reset delivery is configured.
+
+Rollback code: `rollback/pre-staff-passwords-2026-10-08` preserves the prior release. Rolling back code must retain the private account store; it is not a reason to restore an old password or enable an old session. Use production-only account-store credentials; do not grant preview deployments access to real accounts.

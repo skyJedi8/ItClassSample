@@ -39,6 +39,7 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-brand-100">Legal</h3>
             <Link href="/privacy" className="text-slate-300">Privacy Policy</Link>
+            <Link href="/staff" className="mt-3 block text-sm text-slate-400 hover:text-brand-200">Staff login</Link>
             <p className="mt-3 text-xs text-slate-400">Serving residential and commercial clients with veteran-owned standards.</p>
           </div>
         </div>

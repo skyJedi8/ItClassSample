@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vercel/blob": "^2.8.1",
     "next": "^14.2.35",
     "next-auth": "^5.0.0-beta.32",
     "nodemailer": "^8.0.11",

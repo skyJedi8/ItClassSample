@@ -23,7 +23,7 @@ test('private owner verification fails closed and validates the actual connected
   for (const data of [{ connected: false, account: { id: 'fixture', name: 'Operation Clean Freedom' } }, { connected: true, account: { id: 'fixture', name: 'Other company' } }, {}]) assert.equal(await verifyOwnerLogin('eric', 'x'.repeat(64), async () => Response.json(data)), false);
   assert.equal(await verifyOwnerLogin('eric', 'x'.repeat(64), async () => { throw new Error('offline'); }), false);
   assert.equal(await verifyOwnerLogin('eric', 'x'.repeat(64), async () => new Response('', { status: 401 })), false);
-  assert.equal(isOwner(null), false); assert.equal(isOwner({ user: { email: 'other@example.com' } }), false); assert.equal(isOwner({ user: { email: OWNER_EMAIL } }), true);
+  assert.equal(isOwner(null), false); assert.equal(isOwner({ user: { email: 'other@example.com' } }), false); assert.equal(isOwner({ user: { email: OWNER_EMAIL } }), false); assert.equal(isOwner({ user: { email: OWNER_EMAIL, id: 'ocf-owner', role: 'owner' } }), true);
   assert.equal(allowedStaffOrigin('https://attacker.example'), false); assert.equal(allowedStaffOrigin(null), false); assert.equal(allowedStaffOrigin('https://www.operationcleanfreedom.com'), true);
 });
 test('registry rejects swapped links, duplicate keys, private query data and QA', () => {

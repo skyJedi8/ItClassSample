@@ -26,7 +26,7 @@ export default function PasswordSetup() {
     e.preventDefault(); const form = new FormData(e.currentTarget); const password = String(form.get('password') || '');
     if (password !== form.get('confirm')) { setError('The two passwords do not match.'); return; }
     setBusy(true); setError('');
-    try { const r = await fetch('/api/staff/access', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'redeem', token, password }), cache: 'no-store' }); const body = await r.json(); if (!r.ok) throw new Error(body.error); setToken(''); window.history.replaceState(null, '', '/staff/setup'); setDone(true); }
+    try { const r = await fetch('/api/staff/access', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'redeem', token, password }), cache: 'no-store' }); const body = await r.json(); if (!r.ok) throw new Error(body.error); setToken(''); setDone(true); window.location.replace('/staff/login?setup=complete'); }
     catch (e) { setError(e instanceof Error ? e.message : 'Password could not be saved.'); } finally { setBusy(false); }
   }
   return <main className="staff-login"><a href="/" className="staff-brand">OPERATION CLEAN FREEDOM</a><section className="staff-login-card"><span className="staff-eyebrow">PRIVATE ACCOUNT SETUP</span><h1>{done ? 'You’re ready to sign in.' : info?.purpose === 'reset' ? 'Reset your password.' : 'Choose your password.'}</h1>

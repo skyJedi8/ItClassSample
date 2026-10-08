@@ -10,7 +10,7 @@ async function login(form: FormData) {
   try { await signIn('credentials', { username: form.get('username'), password: form.get('password'), redirectTo: '/staff' }); }
   catch (error) { if (error instanceof AuthError) redirect('/staff/login?error=credentials'); throw error; }
 }
-export default async function StaffLogin({ searchParams }: { searchParams: { error?: string } }) {
+export default async function StaffLogin({ searchParams }: { searchParams: { error?: string; setup?: string } }) {
   const configured = staffAuthConfigured();
   if (configured && isStaff(await auth())) redirect('/staff');
   return <main className="staff-login">
@@ -19,6 +19,7 @@ export default async function StaffLogin({ searchParams }: { searchParams: { err
       <span className="staff-eyebrow">APPROVED STAFF ACCESS</span><h1>Your OCF workspace.</h1>
       <p>Campaign preparation, customer links and live Home Care tracking in one private place.</p>
       {!configured ? <div className="staff-alert" role="status">Staff login is temporarily unavailable. Customer information remains protected.</div> : <>
+        {searchParams.setup === 'complete' && <div role="status" className="staff-alert">Password saved. Sign in below with your email and the password you just created.</div>}
         {searchParams.error && <div role="alert" className="staff-alert">Sign-in could not be completed. If you have not created your password yet, choose Create password below. Otherwise check your email and password. After repeated attempts, wait 15 minutes.</div>}
         <div className="staff-first-time"><h2>First time here?</h2><p>Create your password using your private owner setup or staff invitation link.</p><a className="staff-secondary" href="/staff/setup">Create password / New staff setup</a></div>
         <form action={login}>

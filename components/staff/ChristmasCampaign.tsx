@@ -61,6 +61,17 @@ const errorMessages: Record<string, string> = {
   nothing_to_reconcile: 'There is no uncertain send for this recipient.',
   send_outcome_still_unknown: 'The exact outgoing message is not uniquely established. Keep this recipient held; do not retry.',
 };
+const campaignPollingDeadline = Date.parse('2026-10-19T05:00:00.000Z');
+const campaignPollingClock = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'America/Chicago', weekday: 'short', hour: '2-digit', hourCycle: 'h23',
+});
+function campaignPollingWindowOpen(now = new Date()) {
+  if (!Number.isFinite(now.getTime()) || now.getTime() >= campaignPollingDeadline) return false;
+  const parts = campaignPollingClock.formatToParts(now);
+  const weekday = parts.find(part => part.type === 'weekday')?.value;
+  const hour = Number(parts.find(part => part.type === 'hour')?.value);
+  return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].includes(weekday || '') && hour >= 9 && hour < 18;
+}
 function statusLabel(status: string) { return ({ queued: 'Queued', checking: 'Checking live records', pending: 'Awaiting Quo result', sent: 'Verified + logged', accepted_unverified: 'Accepted; verify readback', log_failed: 'Sent; repair log only', tracker_log_failed: 'Sent; repair tracker only', tracker_reservation_unknown: 'Tracker lock needs reconciliation', audit_unknown: 'Preparation log needs reconciliation', unknown: 'Unknown; do not resend', held: 'Held', accepted: 'Accepted' } as Record<string, string>)[status] || status; }
 export default function ChristmasCampaign({ initial }: { initial: Snapshot | null }) {
   const [state, setState] = useState(initial), [section, setSection] = useState<'setup' | 'audience' | 'batch' | 'manual' | 'permissions'>(initial?.connected && initial?.trackerConnected && initial?.offerConfirmed ? 'batch' : 'setup');
@@ -83,7 +94,7 @@ export default function ChristmasCampaign({ initial }: { initial: Snapshot | nul
   const [busy, setBusy] = useState(false), [running, setRunning] = useState(false), [feedback, setFeedback] = useState(''), [error, setError] = useState('');
   const [clients, setClients] = useState<Client[]>([]), [cursor, setCursor] = useState<string | null>(null), [hasNext, setHasNext] = useState(true), [search, setSearch] = useState(''), [detail, setDetail] = useState<Detail | null>(null);
   const [phoneId, setPhoneId] = useState(''), [propertyId, setPropertyId] = useState(''), [first, setFirst] = useState(''), [permission, setPermission] = useState(''), [checks, setChecks] = useState(false);
-  const stop = useRef(false), executing = useRef(false);
+  const stop = useRef(false), executing = useRef(false), campaignPollInFlight = useRef(false);
   async function request(body?: Record<string, unknown>) {
     const response = await fetch('/api/staff/campaign', { method: body ? 'POST' : 'GET', headers: body ? { 'Content-Type': 'application/json' } : undefined, body: body ? JSON.stringify(body) : undefined, cache: 'no-store' });
     const result = await response.json();
@@ -91,11 +102,20 @@ export default function ChristmasCampaign({ initial }: { initial: Snapshot | nul
     return result;
   }
   useEffect(() => {
-    if(!state?.run?.enabled)return;
-    let stopped=false,inFlight=false;
-    const timer=setInterval(async()=>{if(inFlight)return;inFlight=true;try{const latest=await request();if(!stopped)setState(latest);}catch{/* Saved background work continues if this browser loses its connection. */}finally{inFlight=false;}},15000);
-    return()=>{stopped=true;clearInterval(timer);};
-  },[state?.run?.id,state?.run?.enabled]);
+    if (!state?.run?.enabled) return;
+    let stopped = false;
+    async function poll() {
+      if (stopped || campaignPollInFlight.current || document.visibilityState !== 'visible' || !campaignPollingWindowOpen()) return;
+      campaignPollInFlight.current = true;
+      try { const latest = await request(); if (!stopped) setState(latest); }
+      catch { /* Saved background work continues independently of this browser. */ }
+      finally { campaignPollInFlight.current = false; }
+    }
+    // The timer checks locally; hidden/off-hours tabs make no automatic requests.
+    const timer = setInterval(poll, 15000);
+    document.addEventListener('visibilitychange', poll);
+    return () => { stopped = true; clearInterval(timer); document.removeEventListener('visibilitychange', poll); };
+  }, [state?.run?.id, state?.run?.enabled]);
   async function act(body: Record<string, unknown>, success?: string) {
     setBusy(true); setError(''); setFeedback('');
     try { const result = await request(body); if (result.campaign) setState(result); if (success) setFeedback(body.operation==='prepare'&&!result.batch?'Queue saved. The remaining weekly budget cannot cover the next text. Adjust your budget below.':success); return result; }

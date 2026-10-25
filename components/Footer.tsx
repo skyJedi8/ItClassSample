@@ -5,7 +5,8 @@ import { services } from '@/lib/services';
 import { serviceAreas } from '@/lib/areas';
 import BrandLogo from './BrandLogo';
 
-export default function Footer() {
+export default function Footer({holiday=false}:{holiday?:boolean}) {
+  const areas=holiday?serviceAreas.filter(x=>['conroe','the-woodlands','spring'].includes(x.slug)):serviceAreas;
   return (
     <footer className="mt-20 border-t border-slate-800 bg-slate-950/90 pb-24 pt-10 md:pb-10">
       <Container>
@@ -16,6 +17,7 @@ export default function Footer() {
         <div className="grid gap-8 text-sm md:grid-cols-4">
           <div>
             <h3 className="font-semibold text-brand-100">Services</h3>
+            <Link className="mt-2 block text-amber-200" href="/holiday-lighting">Christmas Lights</Link>
             {services.map((service) => (
               <Link className="mt-2 block text-slate-300" key={service.slug} href={`/services/${service.slug}`}>
                 {service.name}
@@ -24,7 +26,7 @@ export default function Footer() {
           </div>
           <div>
             <h3 className="font-semibold text-brand-100">Service Areas</h3>
-            {serviceAreas.map((area) => (
+            {areas.map((area) => (
               <Link className="mt-2 block text-slate-300" key={area.slug} href={`/service-areas/${area.slug}`}>
                 {area.name}
               </Link>
@@ -34,7 +36,7 @@ export default function Footer() {
             <h3 className="font-semibold text-brand-100">Contact</h3>
             <a className="mt-2 block text-slate-300 hover:text-brand-200" href={siteConfig.phoneLink}>{siteConfig.phoneDisplay}</a>
             <a className="mt-2 block break-all text-slate-300 hover:text-brand-200" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
-            <p className="mt-2 text-slate-300">{siteConfig.hours}</p>
+            <p className="mt-2 text-slate-300">{holiday?"For holiday estimates, text a house photo and address. We’ll confirm your price and available dates.":siteConfig.hours}</p>
           </div>
           <div>
             <h3 className="font-semibold text-brand-100">Legal</h3>

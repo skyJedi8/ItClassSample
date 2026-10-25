@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  async redirects(){return ['/christmas-lights','/lights','/holiday','/services/holiday-lighting'].map(source=>({source,destination:'/holiday-lighting',permanent:true}));},
+  async redirects(){return ['/christmas-lights','/lights','/holiday','/services/holiday-lighting'].map(source=>({source,destination:'/holiday-lighting',statusCode:301}));},
   async headers() {
     return ['/staff/:path*', '/api/staff/:path*'].map(source => ({ source, headers: [
       { key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' },

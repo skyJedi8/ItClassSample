@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Hero from '@/components/Hero';
+import {SeasonalHomeHero} from '@/components/HolidaySeason';
 import TrustBar from '@/components/TrustBar';
 import ServiceCards from '@/components/ServiceCards';
 import Section from '@/components/Section';
@@ -14,7 +14,7 @@ import { getMetadata } from '@/lib/seo';
 import { localBusinessSchema } from '@/lib/schema';
 
 export const metadata = getMetadata(
-  'Veteran-Owned Pressure Washing in Houston, TX | OCF',
+  'Christmas Lights & Exterior Cleaning in Conroe, The Woodlands & Spring | OCF',
   'Veteran-owned pressure washing, gutter cleaning, roof soft washing, and drainage cleaning across Greater Houston. Window cleaning available as a bundled add-on.',
   '/'
 );
@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
-      <Hero />
+      <SeasonalHomeHero />
       <TrustBar />
 
       <Section>

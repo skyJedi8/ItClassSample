@@ -18,7 +18,6 @@ export default function BrandLogo({ full = false, className = '' }: BrandLogoPro
         alt="Operation Clean Freedom logo"
         width={900}
         height={360}
-        priority
         className={
           full
             ? 'h-auto w-[280px] max-w-full rounded-xl object-contain sm:w-[360px]'

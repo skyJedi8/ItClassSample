@@ -1,66 +1,9 @@
 'use client';
-
-import { useEffect } from 'react';
-
-const JOBBER_FORM_ID = '79f18a49-0ca1-4d8f-85db-fa0804c8f6ce-1774207';
-const JOBBER_FORM_URL =
-  'https://clienthub.getjobber.com/client_hubs/79f18a49-0ca1-4d8f-85db-fa0804c8f6ce/public/work_request/embedded_work_request_form?form_id=1774207&utm_source=website';
-const JOBBER_PUBLIC_URL =
-  'https://clienthub.getjobber.com/hubs/79f18a49-0ca1-4d8f-85db-fa0804c8f6ce/public/requests/1774207/new?utm_source=website';
-
-export default function QuoteForm({ compact = false }: { compact?: boolean }) {
-  useEffect(() => {
-    const stylesheetId = 'jobber-request-form-styles';
-    if (!document.getElementById(stylesheetId)) {
-      const stylesheet = document.createElement('link');
-      stylesheet.id = stylesheetId;
-      stylesheet.rel = 'stylesheet';
-      stylesheet.href =
-        'https://d3ey4dbjkt2f6s.cloudfront.net/assets/external/work_request_embed.css';
-      stylesheet.media = 'screen';
-      document.head.appendChild(stylesheet);
-    }
-
-    const script = document.createElement('script');
-    script.src =
-      'https://d3ey4dbjkt2f6s.cloudfront.net/assets/static_link/work_request_embed_snippet.js';
-    script.async = true;
-    script.dataset.ocfJobberRequest = 'true';
-    script.setAttribute('clienthub_id', JOBBER_FORM_ID);
-    script.setAttribute('form_url', JOBBER_FORM_URL);
-    // Keep every website submission attributed to Website, even with incoming campaign tags.
-    script.setAttribute('skip_utm', 'true');
-    document.body.appendChild(script);
-
-    return () => {
-      script.remove();
-    };
-  }, []);
-
-  return (
-    <section
-      className={`overflow-hidden rounded-2xl border border-slate-700/70 bg-white ${
-        compact ? 'p-2 sm:p-3' : 'p-3 sm:p-5'
-      }`}
-      aria-label="Request exterior cleaning service"
-    >
-      <div id={JOBBER_FORM_ID} />
-      <noscript>
-        <p className="p-4 text-slate-900">
-          JavaScript is required for the request form.{' '}
-          <a className="font-semibold text-blue-700 underline" href={JOBBER_PUBLIC_URL}>
-            Open the secure Jobber request form
-          </a>
-          .
-        </p>
-      </noscript>
-      <p className="px-3 pb-2 pt-3 text-center text-xs text-slate-600">
-        Your request is securely recorded in Jobber. For urgent scheduling, call or text{' '}
-        <a className="font-semibold underline" href="tel:+13466236767">
-          (346) 623-6767
-        </a>
-        .
-      </p>
-    </section>
-  );
+import {useEffect,useRef,useState} from 'react';
+import dynamic from 'next/dynamic';
+const JobberEmbed=dynamic(()=>import('./JobberEmbed'),{ssr:false,loading:()=> <p role="status">Loading the secure Jobber form…</p>});
+export default function QuoteForm({compact=false,clickOnly=false}:{compact?:boolean;clickOnly?:boolean}){
+ const [active,setActive]=useState(false);const ref=useRef<HTMLDivElement>(null);
+ useEffect(()=>{if(clickOnly||!ref.current)return;const observer=new IntersectionObserver(entries=>{if(entries.some(x=>x.isIntersecting)){setActive(true);observer.disconnect();}},{rootMargin:'200px'});observer.observe(ref.current);return()=>observer.disconnect();},[clickOnly]);
+ return <div ref={ref} className="min-h-[120px]">{active?<JobberEmbed compact={compact}/>:<div className="rounded-2xl border border-slate-700 bg-slate-900 p-6"><p className="mb-4 text-slate-300">Prefer a form? Send your request securely through Jobber.</p><button type="button" className="rounded-lg bg-white px-5 py-3 font-semibold text-slate-950" onClick={()=>setActive(true)}>Open the quote form</button><noscript><a href="https://clienthub.getjobber.com/hubs/79f18a49-0ca1-4d8f-85db-fa0804c8f6ce/public/requests/1774207/new?utm_source=website">Open the secure Jobber form</a></noscript></div>}</div>;
 }

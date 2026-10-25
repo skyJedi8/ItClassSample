@@ -1,4 +1,5 @@
 import './globals.css';
+import './holiday-lighting/holiday.css';
 import type { Metadata } from 'next';
 import PublicChrome from '@/components/PublicChrome';
 import { siteConfig } from '@/lib/site';

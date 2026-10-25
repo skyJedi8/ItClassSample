@@ -12,7 +12,8 @@ export function getMetadata(title: string, description: string, path = ''): Meta
       description,
       url,
       siteName: siteConfig.name,
-      type: 'website'
+      type: 'website',
+      images: [{url:'/images/holiday/social.jpg',width:1200,height:630,alt:'Operation Clean Freedom Christmas lighting'}]
     }
   };
 }

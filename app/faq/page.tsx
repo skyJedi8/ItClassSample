@@ -1,3 +1,4 @@
+import {holidayFaqs} from '@/lib/holiday';
 import Section from '@/components/Section';
 import FAQAccordion from '@/components/FAQAccordion';
 import CTASection from '@/components/CTASection';
@@ -9,7 +10,7 @@ export const metadata = getMetadata(
   '/faq'
 );
 
-const items = [
+const items = [...holidayFaqs,
   { q: 'What areas do you serve?', a: 'Greater Houston and surrounding communities within about 50 miles.' },
   { q: 'Are you insured?', a: 'Yes. Operation Clean Freedom is fully insured with $2M aggregate general liability.' },
   { q: 'How do I get the fastest quote?', a: 'Call or text 346-623-6767 with the service address, requested services, preferred timeframe, and photos when possible.' },
